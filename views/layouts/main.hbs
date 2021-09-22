@@ -5,56 +5,54 @@
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 	<meta charset="UTF-8">
-	<title>bbbbbbbbbb!</title>
+	<title>Title Title</title>
 </head>
 
-<header>
+<header class="bg-secondary">
 
-<!-- Nav for screen 840px and up-->
+<!-- Nav for screen => 840px-->
 	<div class="container hide-md" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
-  <div class="columns">
+  <div class="columns text-dark">
 	<div class="column col-6" style="font-family:Lucida Concole; text-align:left"> <h1>Title Title</h1></div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href='/index'>Home</a> </div>
+    
+	<div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href='/'>Home</a> </div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>Recipes</a></div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/about'>About</a></div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/contact'>Contact</a></div>
-	<div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href=""> <p class="icon icon-people"></p> </a></div>
+	
+	<div class="column col-1" style="text-align:right; margin-top:10px">
+		<a class="icon icon-people" style="font-size: 20px;" href=""></a></div>
+  
   </div>
 </div>
 
 
-<!-- Nav from screen 840px-->
+<!-- Nav for screen <= 840px-->
 	<div class="container show-md" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
   <div class="columns">
 	  <div class="column col-9" style="font-family:Lucida Concole; text-align:left"> <h1>Title Title</h1></div>
 
 <!-- dropdown menu -->
-<div class="dropdown">
+<div class="dropdown dropdown-right">
   <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu icon-2x"></i></a>
+  
   <!-- menu component -->
   <ul class="menu">
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href='/index'>Home</a> </div>
+    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href='/'>Home</a> </div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>Recipes</a></div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/about'>About</a></div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/contact'>Contact</a></div>
-	<div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href=""> <p class="icon icon-people"></p> </a></div>
+	<div class="column col-1" style="text-align:right; padding-top:15px"><a class="icon icon-people" href=""></a></div>
   </ul>
 </div>
-
-
-
-	
   </div>
 </div>
-
-
-
 
 </header>
 
 <body>
 
-	<main>
+	<main style="margin-left: 60px; margin-right:60px;">
 	{{{body}}}
 	</main>
 
