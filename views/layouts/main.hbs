@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+
+<!--my css-->
+
+  <!--Spectre css-->
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
 	<meta charset="UTF-8">
 	<title>Title Title</title>
 </head>
@@ -20,8 +25,31 @@
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/about'>About</a></div>
     <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/contact'>Contact</a></div>
 	
+
+  <!-- If not signed in -->
 	<div class="column col-1" style="text-align:right; margin-top:10px">
-		<a class="icon icon-people" style="font-size: 20px;" href=""></a></div>
+		<a class="icon icon-people" style="font-size: 20px;" href=""></a>
+
+<!-- If signed in. Account menu -->
+<div class="dropdown dropdown-right">
+  <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><p class="icon icon-people" style="font-size: 20px;"></p></a>
+  
+  <!-- menu component -->
+  <ul class="menu">
+    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href='/'>Home</a> </div>
+    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>Recipes</a></div>
+    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/about'>About</a></div>
+    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/contact'>Contact</a></div>
+	<div class="column col-1" style="text-align:right; padding-top:15px"><a class="icon icon-people" href=""></a></div>
+  </ul>
+</div>
+
+
+</div>
+
+
+
+
   
   </div>
 </div>
@@ -55,8 +83,6 @@
 	<main style="margin-left: 60px; margin-right:60px;">
 	{{{body}}}
 	</main>
-
-
 
 </body>
 
