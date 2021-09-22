@@ -29,5 +29,8 @@ app.get('/recipes', function(request,response){
     response.render('recipes.hbs')
 })
 
+app.get('/index', function(request,response){
+    response.render('index.hbs')
+})
 
 app.listen(8080)
