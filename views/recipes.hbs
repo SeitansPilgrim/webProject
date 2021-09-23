@@ -1,1 +1,19 @@
-<p>this is the recipes page</p>
+<h1>this nnn is the recipes page</h1>
+
+{{#if hasDatabaseError}}
+	<p>Couldn't fetch the products at the moment, try again later.</p>
+{{else}}
+	
+	{{#if Post.length}}
+		
+		{{#each Post}}
+			<article>
+				<h2>{{name}}</h2>
+			</article>
+		{{/each}}
+		
+	{{else}}
+		<p>All products are sold!</p>
+	{{/if}}
+	
+{{/if}}
