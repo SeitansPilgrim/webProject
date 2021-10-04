@@ -47,7 +47,7 @@ app.engine("hbs", expressHandlebars({
 }))
 
 // Links----------------------------------------------------------------------------------
-app.get('/', function(request, response){
+app.get('/home', function(request, response){
     const model = {
         humans: dummyData.humans, 
         pets: dummyData.pets

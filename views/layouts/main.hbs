@@ -1,105 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<!--my css-->
-
   <!--Spectre css-->
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 
-	<meta charset="UTF-8">
-	<title>Title Title</title>
+  <meta charset="UTF-8">
+  <title>Free Range Tomato</title>
 </head>
 
 <header class="bg-secondary">
 
-<!-- Nav for screen => 840px-->
-	<div class="container hide-md" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
-  <div class="columns text-dark">
-	<div class="column col-5" style="font-family:Lucida Concole; text-align:left"> <h1>Free Range Tomato</h1></div>
-    
-	  <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px;"> 
-      <a href='/'>Home</a></div>
+  <!-- Nav for screen => 840px-->
+  <div class="container hide-md" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
+    <div class="columns text-dark">
 
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px;">
-      <a href='/recipes'>Recipes</a></div>
+      <div class="column col-4" style="font-family:Lucida Concole; text-align:left">
+        <h2>Free Range Tomato</h2>
+      </div>
 
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px;"> 
-      <a href=''>FAQ</a> </div>
+      <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px;">
+        <a href='/'>Home</a>
+      </div>
 
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px;">
-      <a href='/about'>About</a></div>
+      <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px;">
+        <a href='/recipes'>Recipes</a>
+      </div>
 
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px;">
-      <a href='/contact'>Contact</a></div>
+      <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px;">
+        <a href=''>Reading</a>
+      </div>
+
+      <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px;">
+        <a href=''>FAQ</a>
+      </div>
+
+      <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px;">
+        <a href='/about'>About</a>
+      </div>
+
+      <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px;">
+        <a href='/contact'>Contact</a>
+      </div>
 
 
-  <!-- If not signed in 
+      <!-- If not signed in 
 	<div class="column col-1" style="text-align:right; margin-top:10px">
 		<a class="icon icon-people" style="font-size: 20px;" href=""></a>
--->
+  -->
+
+      <!-- If signed in. Account menu -->
+      <div class="dropdown dropdown-right" style="padding-top:10px; padding-left:30px;">
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <p class="icon icon-people" style="font-size: 20px;"></p>
+        </a>
+
+        <!-- menu component -->
+        <ul class="menu">
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"> <a
+              href=''>Manage</a> </div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/recipes'>SignOut</a></div>
+        </ul>
+      </div>
+
+    </div>
+  </div>
 
 
-<!-- If signed in. Account menu -->
-<div class="dropdown dropdown-right" style= "padding-top:10px; padding-left:30px;">
-  <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><p class="icon icon-people" style="font-size: 20px;"></p></a>
-  
-  <!-- menu component -->
-  <ul class="menu">
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href=''>Information</a> </div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>Sign Out</a></div>
-  </ul>
-</div>
+  <!-- Nav for screen <= 840px-->
+  <div class="container show-md hide-xs"
+    style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
+    <div class="columns">
+      <div class="column col-9" style="font-family:Lucida Concole; text-align:left">
+        <h2>Free Range Tomato</h2>
+      </div>
 
-</div>
-</div>
+      <!-- dropdown menu -->
+      <div class="dropdown dropdown-right" style="padding-top:6px;">
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu icon-2x"></i></a>
+
+        <!-- menu component -->
+        <ul class="menu">
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"> <a
+              href='/'>Home</a> </div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/recipes'>Recipes</a></div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/recipes'>Reading</a></div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/recipes'>FAQ</a></div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/about'>About</a></div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/contact'>Contact</a></div>
+        </ul>
+      </div>
+
+      <!-- If signed in. Account menu -->
+      <div class="dropdown dropdown-right" style="padding-top:10px;">
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <p class="icon icon-people" style="font-size: 20px;"></p>
+        </a>
+
+        <!-- menu component -->
+        <ul class="menu">
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"> <a
+              href=''>Information</a> </div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/recipes'>Sign Out</a></div>
+        </ul>
+
+      </div>
+      <!--/Account menu -->
+
+    </div>
+    <!-- /Columns -->
+  </div>
+  <!-- /Nav for screen <= 840px-->
 
 
-<!-- Nav for screen <= 840px-->
-	<div class="container show-md" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
-  <div class="columns">
-	  <div class="column col-9" style="font-family:Lucida Concole; text-align:left"> <h1>Free Range Tomato</h1></div>
-    
-<!-- dropdown menu -->
-<div class="dropdown dropdown-right" style= "padding-top:6px;">
-  <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu icon-2x"></i></a>
-  
-  <!-- menu component -->
-  <ul class="menu">
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href='/'>Home</a> </div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>Recipes</a></div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>FAQ</a></div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/about'>About</a></div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/contact'>Contact</a></div>
-  </ul>
-</div>
+  <!-- Nav for screen <= 480px-->
+  <div class="container show-xs" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
 
-<!-- If signed in. Account menu -->
-<div class="dropdown dropdown-right" style= "padding-top:10px;">
-  <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><p class="icon icon-people" style="font-size: 20px;"></p></a>
-  
-  <!-- menu component -->
-  <ul class="menu">
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"> <a href=''>Information</a> </div>
-    <div class="column col-1" style="font-family:Courier New; text-align:right; padding-top:15px"><a href='/recipes'>Sign Out</a></div>
-  </ul>
-</div>
+    <!-- Title column -->
+    <div class="columns">
+      <div class="column col-12" style="font-family:Lucida Concole; text-align:left">
+        <h2>Free Range Tomato</h2>
+      </div>
+    </div>
+    <!-- /Title column -->
+
+    <!-- Menu column -->
+    <div class="columns">
+      <!-- dropdown menu -->
+      <div class="dropdown col-10" style="padding-top:6px; text-align:center">
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu icon-2x"></i></a>
+
+        <!-- menu component -->
+        <ul class="menu">
+          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"> <a
+              href='/'>Home</a> </div>
+          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
+              href='/recipes'>Recipes</a></div>
+          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
+              href='/recipes'>Reading</a></div>
+          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
+              href='/recipes'>FAQ</a></div>
+          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
+              href='/about'>About</a></div>
+          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px; padding: bottom 15px;"><a
+              href='/contact'>Contact</a></div>
+        </ul>
+      </div>
+    </div>
+    <!-- /Menu column -->
+
+
+    <!-- Admin column -->
+    <div class="columns">
+      <!-- If signed in. Account menu -->
+      <div class="dropdown dropdown-right col-10" style="padding-top:10px; text-align:center">
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <p class="icon icon-people" style="font-size: 20px;"></p>
+        </a>
+
+        <!-- menu component -->
+        <ul class="menu">
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"> <a
+              href=''>Information</a> </div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/recipes'>Sign Out</a></div>
+        </ul>
+
+      </div>
+      <!--/Account menu -->
+    </div>
+    <!-- /Admin column -->
 
   </div>
-</div>
+  <!-- /Nav for screen <= 480px-->
+
+
+
 
 </header>
 
 <body>
 
-	<main style="margin-left: 60px; margin-right:60px;">
-	{{{body}}}
-	</main>
+  <main style="margin-left: 60px; margin-right:60px;">
+    {{{body}}}
+  </main>
 
 </body>
 
 <footer>
 </footer>
+
 </html>
