@@ -1,5 +1,3 @@
-const dummyData = require('./dummydata')
-
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const { response } = require('express')
@@ -67,13 +65,39 @@ app.get('/reading', function(request, response){
 	})
 })
 
+
+app.get('/faq', function(request, response){
+	
+	db.all(
+		
+		"SELECT Post.postID, FAQ.question, FAQ.anwser FROM Post JOIN FAQ ON FAQ.postID = Post.postID"
+	, function(error, Post){
+		
+		if(error){
+			
+			const model = {
+				hasDatabaseError: true,
+				Post: []
+			}
+			response.render('faq.hbs', model)
+			
+		}else{
+			
+			const model = {
+				hasDatabaseError: false,
+				Post
+			}
+			response.render('faq.hbs', model)
+			
+		}
+	})
+})
+
+
+
 // Links----------------------------------------------------------------------------------
 app.get('/', function(request, response){
-    const model = {
-        humans: dummyData.humans, 
-        pets: dummyData.pets
-    }
-    response.render("home.hbs", model)
+    response.render("home.hbs")
 })
 
 app.get('/about', function(request,response){
@@ -88,9 +112,6 @@ app.get('/recipes', function(request,response){
     response.render('recipes.hbs')
 })
 
-app.get('/faq', function(request,response){
-    response.render('faq.hbs')
-})
 
 
 
