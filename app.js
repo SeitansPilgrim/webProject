@@ -42,13 +42,16 @@ app.get('/recipes', function(request, response){
 
 app.get('/reading', function(request, response){
 	
-	db.all("SELECT * FROM Article", function(error, Article){
+	db.all(
+		
+		"SELECT Post.postID, Article.title, Article.article, Image.image FROM Post JOIN Article ON Article.postID = Post.postID JOIN Image ON Image.postID = Article.postID "
+	, function(error, Post){
 		
 		if(error){
 			
 			const model = {
 				hasDatabaseError: true,
-				Article: []
+				Post: []
 			}
 			response.render('reading.hbs', model)
 			
@@ -56,7 +59,7 @@ app.get('/reading', function(request, response){
 			
 			const model = {
 				hasDatabaseError: false,
-				Article
+				Post
 			}
 			response.render('reading.hbs', model)
 			
