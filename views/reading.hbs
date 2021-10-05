@@ -7,14 +7,11 @@
 	
 	{{#if Post.length}}
 		{{#each Post}}
-			<article>
-				<h2>{{title}}</h2>
-				   <img src="{{image}}" alt="">
+			<div class="column col-6">
+				<h4>{{title}}</h4>
                 <p>{{article}}</p>
-			</article>
+			</div>
 		{{/each}}
-
-
 	{{else}}
 		<p>There are no articles available!</p>
 	{{/if}}
