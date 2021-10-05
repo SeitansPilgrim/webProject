@@ -10,6 +10,10 @@ const app = express()
 const sqlite3 = require('sqlite3')
 const db = new sqlite3.Database('database.sqlite3')
 
+//Default layout
+app.engine("hbs", expressHandlebars({
+    defaultLayout: 'main.hbs'
+}))
 
 app.get('/recipes', function(request, response){
 	
@@ -36,23 +40,37 @@ app.get('/recipes', function(request, response){
 })
 
 
-
-//----------------------------------------------------------------------------------------
-
-
-
-//Default layout
-app.engine("hbs", expressHandlebars({
-    defaultLayout: 'main.hbs'
-}))
+app.get('/reading', function(request, response){
+	
+	db.all("SELECT * FROM Article", function(error, Article){
+		
+		if(error){
+			
+			const model = {
+				hasDatabaseError: true,
+				Article: []
+			}
+			response.render('reading.hbs', model)
+			
+		}else{
+			
+			const model = {
+				hasDatabaseError: false,
+				Article
+			}
+			response.render('reading.hbs', model)
+			
+		}
+	})
+})
 
 // Links----------------------------------------------------------------------------------
-app.get('/home', function(request, response){
+app.get('/', function(request, response){
     const model = {
         humans: dummyData.humans, 
         pets: dummyData.pets
     }
-    response.render("index.hbs", model)
+    response.render("home.hbs", model)
 })
 
 app.get('/about', function(request,response){
@@ -62,5 +80,16 @@ app.get('/about', function(request,response){
 app.get('/contact', function(request,response){
     response.render('contact.hbs')
 })
+
+app.get('/recipes', function(request,response){
+    response.render('recipes.hbs')
+})
+
+app.get('/faq', function(request,response){
+    response.render('faq.hbs')
+})
+
+
+
 
 app.listen(8080)

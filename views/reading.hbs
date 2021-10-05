@@ -1,0 +1,19 @@
+<p>this is the reading page</p>
+
+
+{{#if hasDatabaseError}}
+	<p>Couldn't fetch the articles at the moment, try again later.</p>
+{{else}}
+	
+	{{#if Article.length}}
+		{{#each Article}}
+			<article>
+				<h2>{{title}}</h2>
+                <p>{{article}}</p>
+			</article>
+		{{/each}}
+	{{else}}
+		<p>There are no articles available!</p>
+	{{/if}}
+	
+{{/if}}
