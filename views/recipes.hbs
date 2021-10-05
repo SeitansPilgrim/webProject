@@ -1,19 +1,27 @@
-<hp>this is the recipes page</p>
+<div class="column col-12" style="text-align: center;">
+<h1>Recipes</h1>
+</div>
 
 {{#if hasDatabaseError}}
-	<p>Couldn't fetch the products at the moment, try again later.</p>
+	<p>Couldn't fetch the articles at the moment, try again later.</p>
 {{else}}
 	
 	{{#if Post.length}}
-		
 		{{#each Post}}
-			<article>
-				<h2>{{name}}</h2>
-			</article>
+
+        <div class="columns">
+
+
+			<div class="column col-4">
+				<h4>{{name}}</h4>
+                <p>{{desc}}</p>
+			</div>
+            </div>
+</div>
+
 		{{/each}}
-		
 	{{else}}
-		<p>All products are sold!</p>
+		<p>There are no articles available!</p>
 	{{/if}}
 	
 {{/if}}

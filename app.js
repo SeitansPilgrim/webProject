@@ -13,81 +13,91 @@ app.engine("hbs", expressHandlebars({
     defaultLayout: 'main.hbs'
 }))
 
-app.get('/recipes', function(request, response){
-	
-	db.all("SELECT * FROM Post", function(error, Post){
-		
-		if(error){
-			
-			const model = {
+app.get('/reading', function(request, response)
+{	
+	db.all("SELECT Post.postID, Article.title, Article.article, Image.image FROM Post JOIN Article ON Article.postID = Post.postID JOIN Image ON Image.postID = Article.postID "
+	    , function(error, Post)
+	{	
+		if(error)
+		{	
+			const model = 
+			{
 				hasDatabaseError: true,
 				Post: []
 			}
-			response.render('recipes.hbs', model)
-			
-		}else{
-			
-			const model = {
+
+			response.render('reading.hbs', model)	
+		}
+		
+		else
+		{
+			const model = 
+			{
 				hasDatabaseError: false,
 				Post
 			}
-			response.render('recipes.hbs', model)
-			
+
+			response.render('reading.hbs', model)
 		}
 	})
 })
 
 
-app.get('/reading', function(request, response){
-	
-	db.all(
+app.get('/faq', function(request, response)
+{	
+	db.all("SELECT Post.postID, FAQ.question, FAQ.anwser FROM Post JOIN FAQ ON FAQ.postID = Post.postID"
+	     , function(error, Post){
 		
-		"SELECT Post.postID, Article.title, Article.article, Image.image FROM Post JOIN Article ON Article.postID = Post.postID JOIN Image ON Image.postID = Article.postID "
-	, function(error, Post){
-		
-		if(error){
-			
-			const model = {
+		if(error)
+		{
+			const model = 
+			{
 				hasDatabaseError: true,
 				Post: []
 			}
-			response.render('reading.hbs', model)
-			
-		}else{
-			
-			const model = {
+
+			response.render('faq.hbs', model)	
+		}
+		
+		else
+		{
+			const model = 
+			{
 				hasDatabaseError: false,
 				Post
 			}
-			response.render('reading.hbs', model)
-			
+
+			response.render('faq.hbs', model)
 		}
 	})
 })
 
 
-app.get('/faq', function(request, response){
-	
-	db.all(
-		
-		"SELECT Post.postID, FAQ.question, FAQ.anwser FROM Post JOIN FAQ ON FAQ.postID = Post.postID"
-	, function(error, Post){
-		
-		if(error){
-			
-			const model = {
+app.get('/recipes', function(request, response)
+{
+	db.all("SELECT Post.postID, Recipe.name, Recipe.desc FROM Post JOIN Recipe ON Recipe.postID = Post.postID"
+	     , function(error, Post)
+	{
+		if(error)
+		{
+			const model = 
+			{
 				hasDatabaseError: true,
 				Post: []
 			}
-			response.render('faq.hbs', model)
+
+			response.render('recipes.hbs', model)	
+		}
+		
+		else
+		{
 			
-		}else{
-			
-			const model = {
+			const model = 
+			{
 				hasDatabaseError: false,
 				Post
 			}
-			response.render('faq.hbs', model)
+			response.render('recipes.hbs', model)
 			
 		}
 	})
@@ -107,13 +117,5 @@ app.get('/about', function(request,response){
 app.get('/contact', function(request,response){
     response.render('contact.hbs')
 })
-
-app.get('/recipes', function(request,response){
-    response.render('recipes.hbs')
-})
-
-
-
-
 
 app.listen(8080)
