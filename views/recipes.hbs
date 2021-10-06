@@ -3,11 +3,11 @@
 </div>
 
 {{#if hasDatabaseError}}
-	<p>Couldn't fetch the articles at the moment, try again later.</p>
+	<p>Couldn't fetch the recipes at the moment, try again later.</p>
 {{else}}
 	
-	{{#if Post.length}}
-		{{#each Post}}
+	{{#if Recipe.length}}
+		{{#each Recipe}}
 
         <div class="columns">
 
@@ -16,12 +16,14 @@
 				<h4>{{name}}</h4>
                 <p>{{desc}}</p>
 			</div>
+
+
             </div>
 </div>
 
 		{{/each}}
 	{{else}}
-		<p>There are no articles available!</p>
+		<p>There are no recipes available!</p>
 	{{/if}}
 	
 {{/if}}

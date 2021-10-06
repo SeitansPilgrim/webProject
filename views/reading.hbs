@@ -1,16 +1,28 @@
-<p>this is the reading page</p>
+<div class="column col-12" style="text-align: center;">
+<h1>Reading</h1>
+</div>
+
 
 
 {{#if hasDatabaseError}}
 	<p>Couldn't fetch the articles at the moment, try again later.</p>
 {{else}}
 	
-	{{#if Post.length}}
-		{{#each Post}}
-			<div class="column col-6">
+	{{#if Article.length}}
+		{{#each Article}}
+
+        <div class="columns">
+
+
+			<div class="column col-4">
 				<h4>{{title}}</h4>
                 <p>{{article}}</p>
 			</div>
+
+
+            </div>
+</div>
+
 		{{/each}}
 	{{else}}
 		<p>There are no articles available!</p>

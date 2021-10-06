@@ -13,47 +13,18 @@ app.engine("hbs", expressHandlebars({
     defaultLayout: 'main.hbs'
 }))
 
-app.get('/reading', function(request, response)
-{	
-	db.all("SELECT Post.postID, Article.title, Article.article, Image.image FROM Post JOIN Article ON Article.postID = Post.postID JOIN Image ON Image.postID = Article.postID "
-	    , function(error, Post)
-	{	
-		if(error)
-		{	
-			const model = 
-			{
-				hasDatabaseError: true,
-				Post: []
-			}
-
-			response.render('reading.hbs', model)	
-		}
-		
-		else
-		{
-			const model = 
-			{
-				hasDatabaseError: false,
-				Post
-			}
-
-			response.render('reading.hbs', model)
-		}
-	})
-})
-
 
 app.get('/faq', function(request, response)
 {	
 	db.all("SELECT Post.postID, FAQ.question, FAQ.anwser FROM Post JOIN FAQ ON FAQ.postID = Post.postID"
-	     , function(error, Post){
+	     , function(error, FAQ){
 		
 		if(error)
 		{
 			const model = 
 			{
 				hasDatabaseError: true,
-				Post: []
+				FAQ: []
 			}
 
 			response.render('faq.hbs', model)	
@@ -64,7 +35,7 @@ app.get('/faq', function(request, response)
 			const model = 
 			{
 				hasDatabaseError: false,
-				Post
+				FAQ
 			}
 
 			response.render('faq.hbs', model)
@@ -76,14 +47,14 @@ app.get('/faq', function(request, response)
 app.get('/recipes', function(request, response)
 {
 	db.all("SELECT Post.postID, Recipe.name, Recipe.desc FROM Post JOIN Recipe ON Recipe.postID = Post.postID"
-	     , function(error, Post)
+	     , function(error, Recipe)
 	{
 		if(error)
 		{
 			const model = 
 			{
 				hasDatabaseError: true,
-				Post: []
+				Recipe: []
 			}
 
 			response.render('recipes.hbs', model)	
@@ -95,9 +66,39 @@ app.get('/recipes', function(request, response)
 			const model = 
 			{
 				hasDatabaseError: false,
-				Post
+				Recipe
 			}
 			response.render('recipes.hbs', model)
+			
+		}
+	})
+})
+
+app.get('/reading', function(request, response)
+{
+	db.all("SELECT Post.postID, Article.title, Article.article FROM Post JOIN Article ON Article.postID = Post.postID"
+	     , function(error, Article)
+	{
+		if(error)
+		{
+			const model = 
+			{
+				hasDatabaseError: true,
+				Article: []
+			}
+
+			response.render('reading.hbs', model)	
+		}
+		
+		else
+		{
+			
+			const model = 
+			{
+				hasDatabaseError: false,
+				Article
+			}
+			response.render('reading.hbs', model)
 			
 		}
 	})
