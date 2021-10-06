@@ -1,12 +1,18 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const { response } = require('express')
-
+const bodyParser = require('body-parser')
 const app = express()
 
-//database.sqlite3 -------------------------------------------------------------------------
+app.use(bodyParser.urlencoded ({
+	extended: false
+
+}))
+
 const sqlite3 = require('sqlite3')
 const db = new sqlite3.Database('database.sqlite3')
+
+// Links----------------------------------------------------------------------------------
 
 //Default layout
 app.engine("hbs", expressHandlebars({
@@ -14,9 +20,10 @@ app.engine("hbs", expressHandlebars({
 }))
 
 
+//DB-------------------------------------------------------------------------
 app.get('/faq', function(request, response)
 {	
-	db.all("SELECT Post.postID, FAQ.question, FAQ.anwser FROM Post JOIN FAQ ON FAQ.postID = Post.postID"
+	db.all("SELECT * FROM FAQ"
 	     , function(error, FAQ){
 		
 		if(error)
@@ -46,7 +53,7 @@ app.get('/faq', function(request, response)
 
 app.get('/recipes', function(request, response)
 {
-	db.all("SELECT Post.postID, Recipe.name, Recipe.desc FROM Post JOIN Recipe ON Recipe.postID = Post.postID"
+	db.all("SELECT * FROM Recipe"
 	     , function(error, Recipe)
 	{
 		if(error)
@@ -76,7 +83,7 @@ app.get('/recipes', function(request, response)
 
 app.get('/reading', function(request, response)
 {
-	db.all("SELECT Post.postID, Article.title, Article.article FROM Post JOIN Article ON Article.postID = Post.postID"
+	db.all("SELECT * FROM Article"
 	     , function(error, Article)
 	{
 		if(error)
@@ -103,10 +110,32 @@ app.get('/reading', function(request, response)
 		}
 	})
 })
+//\DB-------------------------------------------------------------------------
 
+//CRUD-----------------------------------------------------------------------
 
+app.get('/faq/create', function(request, response){
+	response.render('createFaq.hbs')
+})
 
-// Links----------------------------------------------------------------------------------
+app.post('/faq/create', function(request, response){
+	const question = request.body.question
+	const answer = request.body.answer
+
+	const query = "INSERT INTO FAQ(question, answer) VALUES(?,?) "
+
+	const values = [question, answer]
+
+	db.run(query, values, function(error){
+		response.redirect('/faq')
+	})
+})
+
+app.get('/createFaq', function(request, response){
+	response.render('createFaq.hbs')
+
+})
+
 app.get('/', function(request, response){
     response.render("home.hbs")
 })
