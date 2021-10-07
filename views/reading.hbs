@@ -1,33 +1,39 @@
 <div class="column col-12" style="text-align: center;">
-<h1>Reading</h1>
+	<h1>Reading</h1>
 </div>
 
+
+<div class="columns">
+	<div class="column col-12">
+		<a href="/createArticle">Create new Article</a>
+	</div>
+</div>
 
 
 {{#if hasDatabaseError}}
-	<p>Couldn't fetch the articles at the moment, try again later.</p>
+<p>Couldn't fetch the articles at the moment, try again later.</p>
+
 {{else}}
-	
-	{{#if Article.length}}
-		{{#each Article}}
+{{#if Article.length}}
+{{#each Article}}
+<div class="columns">
 
-        <div class="columns">
+	<div class="column col-4">
+		<h4>{{title}}</h4>
+		<p>{{article}}</p>
+	</div>
 
+	<div class='delete' style="text-align: right;">
+		<a href="/reading/{{articleID}}/delete">
+			<i class="icon icon-delete"></i>
+		</a>
+	</div>
 
-			<div class="column col-4">
-				<h4>{{title}}</h4>
-                <p>{{article}}</p>
-			</div>
-
-
-            </div>
 </div>
+{{/each}}
 
-		{{/each}}
-	{{else}}
-		<p>There are no articles available!</p>
-	{{/if}}
-	
+{{else}}
+<p>There are no articles available!</p>
+
 {{/if}}
-
-<a href="/createArticle">Create</a>
+{{/if}}

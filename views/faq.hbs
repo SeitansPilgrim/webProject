@@ -1,41 +1,63 @@
 <div class="column col-12" style="text-align: center;">
-<h1>FAQ</h1>
+  <h1>FAQ</h1>
 </div>
 
- <div class="columns">
-     <div class="column col-3"></div>
 
-<div class="column col-6" style="margin: left 1000px;">
+<div class="columns">
+  <div class="column col-3"></div>
 
-{{#if hasDatabaseError}}
-	<p>Couldn't fetch the FAQ at the moment, try again later.</p>
-{{else}}
-	
-	{{#if FAQ.length}}
-		{{#each FAQ}}
-
-				<!-- Accordions are made for each question-->
-                <div class="divider text-center" data-content=""></div>
-<details class="accordion" close>
-  <summary class="accordion-header">
-    <i class="icon icon-arrow-right mr-1" style="font-size: 20px;"></i>
-    {{question}}
-  </summary>
-  <div class="accordion-body" style="padding-left: 35px;">
-    {{answer}}
+  <div class="column col-6">
+    <a href="/createFaq">Create new FAQ</a>
   </div>
-</details>
-        
-        {{/each}}
-        <div class="divider text-center" data-content=""></div>
-	{{else}}
-		<p>There are no FAQ available!</p>
-	{{/if}}
-	
-{{/if}}
 
-</div>
-<div class="column col-3"></div>
+  <div class="column col-3"></div>
 </div>
 
-<a href="/createFaq">Create</a>
+
+
+
+<div class="columns">
+  <div class="column col-3"></div>
+  <div class="column col-6">
+
+    {{#if hasDatabaseError}}
+    <p>Couldn't fetch the FAQ at the moment, try again later.</p>
+
+    {{else}}
+    {{#if FAQ.length}}
+    {{#each FAQ}}
+
+    <!-- Accordions are made for each question-->
+    <div class="divider text-center" data-content=""></div>
+
+    <details class="accordion" close>
+      <summary class="accordion-header">
+
+        <i class="icon icon-arrow-right mr-1" style="font-size: 20px;"></i>
+        {{question}}
+
+        <div class='delete' style="text-align: right;">
+          <a href="/faq/{{faqID}}/delete">
+            <i class="icon icon-delete"></i>
+          </a>
+        </div>
+
+      </summary>
+
+      <div class="accordion-body" style="padding-left: 35px;">
+        {{answer}}
+      </div>
+    </details>
+
+    {{/each}}
+    <div class="divider text-center" data-content=""></div>
+
+    {{else}}
+    <p>There are no FAQ available!</p>
+
+    {{/if}}
+    {{/if}}
+
+  </div>
+  <div class="column col-3"></div>
+</div>

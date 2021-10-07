@@ -1,6 +1,11 @@
-<h1>Delete product</h1>
+<div class="column col-12" style="text-align: center; margin-top:150px">
 
-<p>Really delete the FAQ named {{FAQ.question}}?</p>
-<form action="/products/{{product.id}}/delete" method="post">
-	<input type="submit" value="Delete it!">
-</form>
+    <h1>Delete FAQ</h1>
+
+    <p>Really delete the FAQ named "{{FAQ.question}}" ?</p>
+
+    <form action="/faq/{{FAQ.faqID}}/delete" method="post">
+        <input type="submit" value="confirm delete">
+    </form>
+
+</div>
