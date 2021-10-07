@@ -53,7 +53,7 @@ app.get('/faq', function(request, response)
 
 app.get('/recipes', function(request, response)
 {
-	db.all("SELECT * FROM Recipe"
+	db.all("SELECT Recipe.recipeName, Recipe.desc, RecipeImage.image FROM Recipe JOIN RecipeImage ON RecipeImage.recipeID = Recipe.recipeID"
 	     , function(error, Recipe)
 	{
 		if(error)
@@ -80,6 +80,7 @@ app.get('/recipes', function(request, response)
 		}
 	})
 })
+
 
 app.get('/reading', function(request, response)
 {
@@ -114,11 +115,14 @@ app.get('/reading', function(request, response)
 
 //CRUD-----------------------------------------------------------------------
 
-app.get('/faq/create', function(request, response){
+//--------------------CREATE FAQ----------------------------------------------
+app.get('/faq/create', function(request, response)
+{
 	response.render('createFaq.hbs')
 })
 
-app.post('/faq/create', function(request, response){
+app.post('/faq/create', function(request, response)
+{
 	const question = request.body.question
 	const answer = request.body.answer
 
@@ -126,15 +130,80 @@ app.post('/faq/create', function(request, response){
 
 	const values = [question, answer]
 
-	db.run(query, values, function(error){
+	db.run(query, values, function(error)
+	{
 		response.redirect('/faq')
 	})
 })
 
-app.get('/createFaq', function(request, response){
+app.get('/createFaq', function(request, response)
+{
 	response.render('createFaq.hbs')
-
 })
+//--------------------/CREATE FAQ----------------------------------------------
+
+
+//--------------------CREATE Article-----------------------------------------
+app.get('/article/create', function(request, response)
+{
+	response.render('createArticle.hbs')
+})
+
+app.post('/article/create', function(request, response)
+{
+	const title = request.body.title
+	const article = request.body.article
+
+	const query = "INSERT INTO Article(title, article) VALUES(?,?) "
+
+	const values = [title, article]
+
+	db.run(query, values, function(error)
+	{
+		response.redirect('/reading')
+	})
+})
+
+app.get('/createArticle', function(request, response)
+{
+	response.render('createArticle.hbs')
+})
+//--------------------/CREATE Article-----------------------------------------
+
+
+
+//--------------------CREATE Recipe-----------------------------------------
+app.get('/article/create', function(request, response)
+{
+	response.render('createArticle.hbs')
+})
+
+app.post('/article/create', function(request, response)
+{
+	const title = request.body.title
+	const article = request.body.article
+
+	const query = "INSERT INTO Article(title, article) VALUES(?,?) "
+
+	const values = [title, article]
+
+	db.run(query, values, function(error)
+	{
+		response.redirect('/reading')
+	})
+})
+
+app.get('/createArticle', function(request, response)
+{
+	response.render('createArticle.hbs')
+})
+//--------------------/CREATE Recipe-----------------------------------------
+
+
+
+
+
+
 
 app.get('/', function(request, response){
     response.render("home.hbs")
