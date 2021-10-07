@@ -1,31 +1,33 @@
 <div class="column col-12" style="text-align: center;">
-<h1>Recipes</h1>
+	<h1>Recipes</h1>
 </div>
+<a href="/createRecipe">Create</a>
 
-{{#if hasDatabaseError}}
+<div class="columns">
+	{{#if hasDatabaseError}}
 	<p>Couldn't fetch the recipes at the moment, try again later.</p>
-{{else}}
-	
+	{{else}}
+
 	{{#if Recipe.length}}
-		{{#each Recipe}}
+	{{#each Recipe}}
 
-        <div class="columns">
+	<div class="column col-2"></div>
 
+	<div class="column col-8" style="align-tracks: center;">
+		<h4 style="text-align: center;">{{recipeName}}</h4>
+		<img src={{image}} alt="bild" width="100%" height="">
+		<p>{{desc}}</p>
+	</div>
 
-			<div class="column col-4">
-				<h4>{{recipeName}}</h4>
-				<img src={{image}} alt="bild" width="300" height="300">
-				<p>{{tagName}}</p>
-				<p>{{desc}}</p>
-			</div>
+	<div class="column col-2"></div>
 
+	{{/each}}
+	{{else}}
+	<p>There are no recipes available!</p>
+	{{/if}}
 
-            </div>
+	{{/if}}
+	<div class="column col-2"></div>
 </div>
 
-		{{/each}}
-	{{else}}
-		<p>There are no recipes available!</p>
-	{{/if}}
-	
-{{/if}}
+

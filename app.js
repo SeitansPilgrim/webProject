@@ -53,7 +53,7 @@ app.get('/faq', function(request, response)
 
 app.get('/recipes', function(request, response)
 {
-	db.all("SELECT Recipe.recipeName, Recipe.desc, RecipeImage.image FROM Recipe JOIN RecipeImage ON RecipeImage.recipeID = Recipe.recipeID"
+	db.all("SELECT * FROM Recipe"
 	     , function(error, Recipe)
 	{
 		if(error)
@@ -69,14 +69,13 @@ app.get('/recipes', function(request, response)
 		
 		else
 		{
-			
 			const model = 
 			{
 				hasDatabaseError: false,
 				Recipe
 			}
+
 			response.render('recipes.hbs', model)
-			
 		}
 	})
 })
@@ -100,14 +99,13 @@ app.get('/reading', function(request, response)
 		
 		else
 		{
-			
 			const model = 
 			{
 				hasDatabaseError: false,
 				Article
 			}
+
 			response.render('reading.hbs', model)
-			
 		}
 	})
 })
@@ -173,29 +171,30 @@ app.get('/createArticle', function(request, response)
 
 
 //--------------------CREATE Recipe-----------------------------------------
-app.get('/article/create', function(request, response)
+app.get('/recipe/create', function(request, response)
 {
-	response.render('createArticle.hbs')
+	response.render('createRecipe.hbs')
 })
 
-app.post('/article/create', function(request, response)
+app.post('/recipe/create', function(request, response)
 {
-	const title = request.body.title
-	const article = request.body.article
+	const recipeName = request.body.recipeName
+	const image = request.body.image
+	const desc = request.body.desc
 
-	const query = "INSERT INTO Article(title, article) VALUES(?,?) "
+	const query = "INSERT INTO Recipe(recipeName, image, desc) VALUES(?,?,?)"
 
-	const values = [title, article]
+	const values = [recipeName, image, desc]
 
 	db.run(query, values, function(error)
 	{
-		response.redirect('/reading')
+		response.redirect('/recipes')
 	})
 })
 
-app.get('/createArticle', function(request, response)
+app.get('/createRecipe', function(request, response)
 {
-	response.render('createArticle.hbs')
+	response.render('createRecipe.hbs')
 })
 //--------------------/CREATE Recipe-----------------------------------------
 
