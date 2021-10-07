@@ -1,0 +1,28 @@
+<h1>Update recipe</h1>
+
+{{#if errors.length}}
+<p>Couldn't edit the recipe because:</p>
+<ul>
+	{{#each errors}}
+	<li>{{this}}</li>
+	{{/each}}
+</ul>
+{{/if}}
+
+
+
+<form action="/recipes/{{Recipe.recipeID}}/update" method="POST">
+
+	<div>
+		Name: <input type="text" name="name" value="{{Recipe.name}}">
+	</div>
+
+	<div>
+		Description: <textarea name="desc">{{Recipe.desc}}</textarea>
+	</div>
+
+	<div>
+		<input type="submit" value="Update">
+	</div>
+
+</form>

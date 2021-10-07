@@ -16,13 +16,19 @@
 	<div class="column col-8" style="align-tracks: center;">
 
 
-		<div class='delete' style="text-align: center;">
+		<div style="text-align: center;">
+			
 			<a href="/recipes/{{recipeID}}/delete">
 				<i class="icon icon-delete"></i>
 			</a>
+
+			<a href="/recipes/{{recipeID}}/update">
+				<i class="icon icon-edit"></i>
+			</a>
+
 		</div>
 
-		<h4 style="text-align: center;">{{recipeName}}</h4>
+		<h4 style="text-align: center;">{{name}}</h4>
 		<img src={{image}} alt="bild" width="100%" height="">
 		<p>{{desc}}</p>
 

@@ -4,6 +4,13 @@ const { response } = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 
+const MIN_QUESTION_LENGTH = 1;
+const MIN_ANSWER_LENGTH = 1;
+const MIN_TITLE_LENGTH = 1;
+const MIN_ARTICLE_LENGTH = 1;
+const MIN_NAME_LENGTH = 1;
+const MIN_DESC_LENGTH = 1;
+
 app.use(bodyParser.urlencoded({
 	extended: false
 
@@ -155,13 +162,13 @@ app.get('/recipe/create', function (request, response) {
 })
 
 app.post('/recipe/create', function (request, response) {
-	const recipeName = request.body.recipeName
+	const name = request.body.name
 	const image = request.body.image
 	const desc = request.body.desc
 
-	const query = "INSERT INTO Recipe(recipeName, image, desc) VALUES(?,?,?)"
+	const query = "INSERT INTO Recipe(name, image, desc) VALUES(?,?,?)"
 
-	const values = [recipeName, image, desc]
+	const values = [name, image, desc]
 
 	db.run(query, values, function (error) {
 		response.redirect('/recipes')
@@ -271,7 +278,7 @@ app.post('/reading/:articleID/delete', function (request, response) {
 
 //--------------------DELETE RECIPE-----------------------------------------
 function getRecipeByID(recipeID, callback) {
-	
+
 	const query = "SELECT * FROM Recipe WHERE recipeID = ? LIMIT 1"
 	const values = [recipeID]
 
@@ -318,10 +325,208 @@ app.post('/recipes/:recipeID/delete', function (request, response) {
 })
 //--------------------/DELETE RECIPE-----------------------------------------
 
+//--------------------UPDATE FAQ-----------------------------------------
 
+function getFaqValidationErrors(question, answer) {
+	const validationErrors = []
 
+	if (question.length < MIN_QUESTION_LENGTH) {
+		validationErrors.push("Question must be at least " + MIN_QUESTION_LENGTH + " characters")
+	}
 
+	if (answer.length < MIN_ANSWER_LENGTH) {
+		validationErrors.push("Answer must be at least " + MIN_ANSWER_LENGTH + " characters")
+	}
+	return validationErrors
+}
 
+app.get('/faq/:faqID', function (request, response) {
+	const faqID = request.params.faqID
+
+	getFaqByID(faqID, function (error, FAQ) {
+		const model =
+		{
+			FAQ
+		}
+
+		response.render('faq.hbs', model)
+	})
+})
+
+app.get('/faq/:faqID/update', function (request, response) {
+	const faqID = request.params.faqID
+
+	getFaqByID(faqID, function (error, FAQ) {
+		const model =
+		{
+			FAQ
+		}
+
+		response.render('updateFaq.hbs', model)
+	})
+})
+
+app.post('/faq/:faqID/update', function (request, response) {
+	const faqID = request.params.faqID
+	const question = request.body.question
+	const answer = request.body.answer
+	const errors = getFaqValidationErrors(question, answer)
+
+	if (errors.length == 0) {
+		const query = "UPDATE FAQ SET question = ?, answer = ? WHERE faqID = ?"
+		const values = [question, answer, faqID]
+
+		db.run(query, values, function (error) {
+			response.redirect('/faq')
+		})
+	}
+
+	else {
+		const model =
+		{
+			errors, FAQ:
+			{
+				faqID,
+				question,
+				answer
+			}
+		}
+
+		response.render('updateFaq.hbs', model)
+	}
+})
+//--------------------/UPDATE  FAQ-----------------------------------------
+
+//--------------------UPDATE ARTICLE-----------------------------------------
+
+function getArticleValidationErrors(title, article) {
+	const validationErrors = []
+
+	if (title.length < MIN_TITLE_LENGTH) {
+		validationErrors.push("Title must be at least " + MIN_TITLE_LENGTH + " characters")
+	}
+
+	if (article.length < MIN_ARTICLE_LENGTH) {
+		validationErrors.push("Article must be at least " + MIN_ARTICLE_LENGTH + " characters")
+	}
+	return validationErrors
+}
+
+app.get('/reading/:articleID', function (request, response) {
+	const articleID = request.params.articleID
+
+	getArticleByID(articleID, function (error, Article) {
+		const model =
+		{
+			Article
+		}
+
+		response.render('reading.hbs', model)
+	})
+})
+
+app.get('/reading/:articleID/update', function (request, response) {
+	const articleID = request.params.articleID
+
+	getArticleByID(articleID, function (error, Article) {
+		const model =
+		{
+			Article
+		}
+
+		response.render('updateArticle.hbs', model)
+	})
+})
+
+app.post('/reading/:articleID/update', function (request, response) {
+	const articleID = request.params.articleID
+	const title = request.body.title
+	const article = request.body.article
+	const errors = getArticleValidationErrors(title, article)
+
+	if (errors.length == 0) {
+		const query = "UPDATE Article SET title = ?, article = ? WHERE articleID = ?"
+		const values = [title, article, articleID]
+
+		db.run(query, values, function (error) {
+			response.redirect('/reading')
+		})
+	}
+
+	else {
+		const model =
+		{
+			errors, Article:
+			{
+				articleID,
+				title,
+				article
+			}
+		}
+		
+		response.render('updateArticle.hbs', model)
+	}
+})
+//--------------------/UPDATE  ARTICLE-----------------------------------------
+
+//--------------------UPDATE RECIPE-----------------------------------------
+
+function getRecipeValidationErrors(name, desc) {
+	const validationErrors = []
+
+	if (name.length < MIN_NAME_LENGTH) {
+		validationErrors.push("Name must be at least " + MIN_NAME_LENGTH + " characters")
+	}
+
+	if (desc.length < MIN_DESC_LENGTH) {
+		validationErrors.push("Description must be at least " + MIN_DESC_LENGTH + " characters")
+	}
+	return validationErrors
+}
+
+app.get('/recipes/:recipeID/update', function (request, response) {
+	const recipeID = request.params.recipeID
+
+	getRecipeByID(recipeID, function (error, Recipe) {
+		const model =
+		{
+			Recipe
+		}
+
+		response.render('updateRecipe.hbs', model)
+	})
+})
+
+app.post('/recipes/:recipeID/update', function (request, response) {
+	const recipeID = request.params.recipeID
+	const name = request.body.name
+	const desc = request.body.desc
+	const errors = getRecipeValidationErrors(name, desc)
+
+	if (errors.length == 0) {
+		const query = "UPDATE Recipe SET name = ?, desc = ? WHERE recipeID = ?"
+		const values = [name, desc, recipeID]
+
+		db.run(query, values, function (error) {
+			response.redirect('/recipes')
+		})
+	}
+
+	else {
+		const model =
+		{
+			errors, Recipe:
+			{
+				recipeID,
+				name,
+				desc
+			}
+		}
+		
+		response.render('updateRecipe.hbs', model)
+	}
+})
+//--------------------/UPDATE  ARTICLE-----------------------------------------
 
 app.get('/', function (request, response) {
 	response.render("home.hbs")
