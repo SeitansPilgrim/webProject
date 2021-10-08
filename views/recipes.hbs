@@ -1,7 +1,16 @@
 <div class="column col-12" style="text-align: center;">
 	<h1>Recipes</h1>
 </div>
-<a href="/createRecipe">Create</a>
+
+{{#if session.isLoggedIn}}
+
+<div class="columns">
+	<div class="column col-12">
+		<a href="/createRecipe">Create new recipe</a>
+	</div>
+</div>
+
+{{/if}}
 
 <div class="columns">
 	{{#if hasDatabaseError}}
@@ -15,9 +24,9 @@
 
 	<div class="column col-8" style="align-tracks: center;">
 
-
+		{{#if ../session.isLoggedIn}}
 		<div style="text-align: center;">
-			
+
 			<a href="/recipes/{{recipeID}}/delete">
 				<i class="icon icon-delete"></i>
 			</a>
@@ -27,6 +36,7 @@
 			</a>
 
 		</div>
+		{{/if}}
 
 		<h4 style="text-align: center;">{{name}}</h4>
 		<img src={{image}} alt="bild" width="100%" height="">

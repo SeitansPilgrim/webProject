@@ -2,16 +2,17 @@
   <h1>FAQ</h1>
 </div>
 
-
+{{#if session.isLoggedIn}}
 <div class="columns">
   <div class="column col-3"></div>
 
   <div class="column col-6">
-    <a href="/createFaq">Create new FAQ</a>
+    <a href="/createFaq" style="">Create new FAQ</a>
   </div>
 
   <div class="column col-3"></div>
 </div>
+{{/if}}
 
 
 
@@ -36,6 +37,7 @@
         <i class="icon icon-arrow-right mr-1" style="font-size: 20px;"></i>
         {{question}}
 
+        {{#if ../session.isLoggedIn}}
         <div style="text-align: right;">
 
           <a href="/faq/{{faqID}}/delete">
@@ -47,6 +49,7 @@
           </a>
 
         </div>
+        {{/if}}
 
       </summary>
 

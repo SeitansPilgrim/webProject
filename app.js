@@ -2,6 +2,11 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const { response } = require('express')
 const bodyParser = require('body-parser')
+
+const expressSession = require('express-session')
+const connectSqlite3 = require('connect-sqlite3')
+const SqLiteStore = connectSqlite3(expressSession)
+
 const app = express()
 
 const MIN_QUESTION_LENGTH = 1;
@@ -16,8 +21,50 @@ app.use(bodyParser.urlencoded({
 
 }))
 
-const sqlite3 = require('sqlite3')
-const db = new sqlite3.Database('database.sqlite3')
+//-----------------LOGIN AND SESSION-------------
+const ADMIN_USERNAME = 's'
+const ADMIN_PASSWORD = 's'
+
+app.use(expressSession({
+	store: new SqLiteStore({ db: "session-db.db" }),
+	secret: "bahbahn",
+	saveUninitialized: false,
+	resave: false,
+}))
+
+app.use(function (request, response, next) {
+	// Makes the session available to all views.
+	response.locals.session = request.session
+	next()
+})
+
+app.get('/login', function (request, response) {
+	response.render('login.hbs')
+})
+
+app.post('/login', function (request, response) {
+
+	const username = request.body.username
+	const password = request.body.password
+
+	if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {
+		request.session.isLoggedIn = true
+		// TODO: Do something better than redirecting to start page.
+		response.redirect('/')
+	}
+
+	else {
+		// TODO: Display error message to the user.
+		response.render('login.hbs')
+	}
+
+})
+
+app.get('/logout', function (request, response) {
+	request.session.isLoggedIn = false
+	response.redirect('/')
+})
+//-----------------/LOGIN----------------------------------------------------------------
 
 // Links----------------------------------------------------------------------------------
 
@@ -463,7 +510,7 @@ app.post('/reading/:articleID/update', function (request, response) {
 				article
 			}
 		}
-		
+
 		response.render('updateArticle.hbs', model)
 	}
 })
@@ -522,7 +569,7 @@ app.post('/recipes/:recipeID/update', function (request, response) {
 				desc
 			}
 		}
-		
+
 		response.render('updateRecipe.hbs', model)
 	}
 })
