@@ -42,7 +42,7 @@ app.get('/logout', function (request, response) {
 
 // Links----------------------------------------------------------------------------------
 
-app.use('/reading', articleRouter)
+app.use('/article', articleRouter)
 app.use('/faq', faqRouter)
 app.use('/recipes', recipeRouter)
 app.use('/auth', authRouter)

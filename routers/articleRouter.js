@@ -4,7 +4,6 @@ const router = express.Router()
 
 const db = require('../database')
 
-
 router.get('/', function (request, response) {
 
     db.GetAllArticles(function (error, Article) {
@@ -16,7 +15,7 @@ router.get('/', function (request, response) {
                 Article: []
             }
 
-            response.render('reading.hbs', model)
+            response.render('articles.hbs', model)
         }
 
         else {
@@ -26,11 +25,16 @@ router.get('/', function (request, response) {
                 Article
             }
 
-            response.render('reading.hbs', model)
+            response.render('articles.hbs', model)
         }
 
     })
 
+})
+
+//--------------------CREATE ARTICLE-----------------------------------------
+router.get('/create', function (request, response) {
+    response.render('createArticle.hbs')
 })
 
 router.get('/:articleID', function (request, response) { // get article id
@@ -45,16 +49,7 @@ router.get('/:articleID', function (request, response) { // get article id
     })
 })
 
-//--------------------CREATE ARTICLE-----------------------------------------
-router.get('/article/create', function (request, response) {
-    response.render('createArticle.hbs')
-})
-
-router.get('/createArticle', function (request, response) {
-	response.render('createArticle.hbs')
-})
-
-router.post('/article/create', function (request, response) {
+router.post('/create', function (request, response) {
 
     const title = request.body.title
     const article = request.body.article
