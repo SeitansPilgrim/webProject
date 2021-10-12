@@ -70,6 +70,7 @@ exports.createFaq = function (question, answer, callback) {
         callback(error, this.lastID)               
     })
 }
+
 //--------------------/CREATE FAQ----------------------------------------------
 
 //--------------------CREATE Article-----------------------------------------

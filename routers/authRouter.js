@@ -1,18 +1,19 @@
-express = require('express')
+const express = require('express')
+
+const router = express.Router()
 
 const ADMIN_USERNAME = 's'
 const ADMIN_PASSWORD = 's'
 
-const router = express.Router()
 
-router.get('/', function (request, response) {
+router.get('/login', function (request, response) {
     response.render('login.hbs')
 })
 
 
-router.post('/', function (request, response) {
+router.post('/login', function (request, response) {
 
-    const username = request.params.username
+    const username = request.body.username
     const password = request.body.password
 
     if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {

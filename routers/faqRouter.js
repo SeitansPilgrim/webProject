@@ -51,11 +51,6 @@ router.get('/create', function (request, response) {
 	response.render('createFaq.hbs')
 })
 
-router.get('/createFaq', function (request, response) {
-	response.render('createFaq.hbs')
-})
-
-
 router.post('/create', function (request, response) {
 
     const question = request.body.question

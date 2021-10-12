@@ -9,23 +9,11 @@ const authRouter = require('./routers/authRouter')
 
 const app = express()
 
-app.use('/reading', articleRouter)
-app.use('/faq', faqRouter)
-app.use('/recipes', recipeRouter)
-app.use('/login', authRouter)
-// över ska va kvar
-
-
 const { response } = require('express')
 const bodyParser = require('body-parser')
 
-
-
 const connectSqlite3 = require('connect-sqlite3')
 const SqLiteStore = connectSqlite3(expressSession)
-
-
-
 
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -42,7 +30,6 @@ app.use(expressSession({
 }))
 
 app.use(function (request, response, next) {
-	// Makes the session available to all views.
 	response.locals.session = request.session
 	next()
 })
@@ -55,6 +42,10 @@ app.get('/logout', function (request, response) {
 
 // Links----------------------------------------------------------------------------------
 
+app.use('/reading', articleRouter)
+app.use('/faq', faqRouter)
+app.use('/recipes', recipeRouter)
+app.use('/auth', authRouter)
 
 app.engine("hbs", expressHandlebars( //Default layout
 	{
