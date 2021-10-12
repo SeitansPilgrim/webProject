@@ -37,7 +37,7 @@ router.get('/:articleID', function (request, response) { // get article id
 
     const articleID = request.params.articleID
 
-    db.getArticleByID(articleID, function (error, Article) {
+    db.getArticleById(articleID, function (error, Article) {
         const model = {
             Article
         }
@@ -109,7 +109,7 @@ router.get('/:articleID/update', function (request, response) {
 
     const articleID = request.params.articleID
 
-    db.getArticleByID(articleID, function (error, Article) {
+    db.getArticleById(articleID, function (error, Article) {
 
         const model = {
             Article
@@ -160,7 +160,7 @@ router.get('/:articleID/delete', function (request, response) {
 
     const articleID = require.params.articleID
 
-    db.getArticleByID(articleID, function (error, Article) {
+    db.getArticleById(articleID, function (error, Article) {
 
         const model = {
             Article
@@ -173,7 +173,7 @@ router.get('/:articleID/delete', function (request, response) {
 
 router.post('/:articleID/delete', function (request, response) {
 
-    const articleId = require.params.articleID
+    const articleID = require.params.articleID
 
     /*if (!request.session.isLoggedIn) {
         errors.push("Not logged in.")

@@ -33,22 +33,22 @@ router.get('/', function (request, response) {
 
 })
 
+//--------------------CREATE FAQ-----------------------------------------
+router.get('/create', function (request, response) {
+    
+	response.render('createFaq.hbs')
+})
 
 router.get('/:faqID', function (request, response) { // get faq id 
 
     const faqID = request.params.faqID
 
-    db.getFaqByID(faqID, function (error, FAQ) {
+    db.getFaqById(faqID, function (error, FAQ) {
         const model = {
             FAQ
         }
         response.render('faq.hbs')
     })
-})
-
-//--------------------CREATE FAQ-----------------------------------------
-router.get('/create', function (request, response) {
-	response.render('createFaq.hbs')
 })
 
 router.post('/create', function (request, response) {
@@ -81,7 +81,7 @@ router.post('/create', function (request, response) {
 
             } else {
 
-                response.redirect('/')
+                response.redirect('/faq')
             }
         })
 
@@ -105,7 +105,7 @@ router.post('/create', function (request, response) {
 router.get('/:faqID/update', function (request, response) {
 	const faqID = request.params.faqID
 
-	db.getFaqByID(faqID, function (error, FAQ) {
+	db.getFaqById(faqID, function (error, FAQ) {
 		const model =
 		{
 			FAQ
@@ -130,8 +130,8 @@ router.post('/:faqID/update', function (request, response) {
 
     if (errors.length == 0) {
 
-        db.updateFaqById(faqID, question, answer, function (error) {
-            response.redirect('/')
+        db.updateFaqbyId(faqID, question, answer, function (error) {
+            response.redirect('/faq')
         })
 
     } else {
@@ -156,7 +156,7 @@ router.get('/:faqID/delete', function (request, response) {
 	
     const faqID = request.params.faqID
 
-	db.getFaqByID(faqID, function (error, FAQ) {
+	db.getFaqById(faqID, function (error, FAQ) {
 		const model =
 		{
 			FAQ
@@ -167,15 +167,15 @@ router.get('/:faqID/delete', function (request, response) {
 })
 
 router.post('/:faqID/delete', function (request, response) {
-
-    const faqID = require.params.faqID
+    
+    const faqID = request.params.faqID
 
     /*if (!request.session.isLoggedIn) {
         errors.push("Not logged in.")
     } */
 
     db.deleteFaqById(faqID, function (error) {
-        response.redirect('faq.hbs')
+        response.redirect('/faq')
     })
 })
 //--------------------/DELETE FAQ-----------------------------------------

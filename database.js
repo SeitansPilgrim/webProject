@@ -31,7 +31,7 @@ exports.GetAllArticles = function (callback) {
 
 //-------------------GET RECOURCES BY ID-------------------------------------------
 
-exports.getFaqByID = function(faqID, callback) {
+exports.getFaqById = function(faqID, callback) {
 	const query = "SELECT * FROM FAQ WHERE faqID = ? LIMIT 1"
 	const values = [faqID]
 
@@ -40,7 +40,7 @@ exports.getFaqByID = function(faqID, callback) {
 	})
 }
 
-exports.getArticleByID = function(articleID, callback) {
+exports.getArticleById = function(articleID, callback) {
 	const query = "SELECT * FROM Article WHERE articleID = ? LIMIT 1"
 	const values = [articleID]
 
@@ -49,7 +49,7 @@ exports.getArticleByID = function(articleID, callback) {
 	})
 }
 
-exports.getRecipeByID = function(recipeID, callback) {
+exports.getRecipeById = function(recipeID, callback) {
 
 	const query = "SELECT * FROM Recipe WHERE recipeID = ? LIMIT 1"
 	const values = [recipeID]
@@ -98,7 +98,7 @@ exports.createRecipe = function (name, image, desc, callback) {
 //--------------------/CREATE Recipe-----------------------------------------
 
 //---------------------UPDATE  FAQ-----------------------------------------
-exports.updateFaqbyID = function (faqID, question, answer, callback) {
+exports.updateFaqbyId = function (faqID, question, answer, callback) {
 
     const query = "UPDATE FAQ SET question = ?, answer = ? WHERE faqID = ?"
     const values = [question, answer, faqID]
