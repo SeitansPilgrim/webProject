@@ -124,7 +124,7 @@ exports.updateArticleById = function (articleID, title, article, callback) {
 
 
 //--------------------UPDATE RECIPE-----------------------------------------
-exports.updateRecipeById = function(recipeID, name, desc) {  
+exports.updateRecipeById = function(recipeID, name, desc, callback) {  
 
 		const query = "UPDATE Recipe SET name = ?, desc = ? WHERE recipeID = ?"
 		const values = [name, desc, recipeID]

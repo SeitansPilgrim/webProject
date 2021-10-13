@@ -42,10 +42,11 @@ router.get('/:articleID', function (request, response) { // get article id
     const articleID = request.params.articleID
 
     db.getArticleById(articleID, function (error, Article) {
+        console.log("i get id")
         const model = {
             Article
         }
-        response.render('reading.hbs')
+        response.render('articles.hbs')
     })
 })
 
@@ -79,7 +80,7 @@ router.post('/create', function (request, response) {
 
             } else {
 
-                response.redirect('/')
+                response.redirect('/articles')
             }
         })
 
@@ -107,10 +108,11 @@ router.get('/:articleID/update', function (request, response) {
     db.getArticleById(articleID, function (error, Article) {
 
         const model = {
+
             Article
         }
 
-        response.render('updateArticle.hbs')
+        response.render('updateArticle.hbs', model)
     })
 })
 
@@ -130,7 +132,7 @@ router.post('/:articleID/update', function (request, response) {
     if (errors.length == 0) {
 
         db.updateArticleById(articleID, title, article, function (error) {
-            response.redirect('/')
+            response.redirect('/articles')
         })
 
     } else {
@@ -153,7 +155,7 @@ router.post('/:articleID/update', function (request, response) {
 //--------------------DELETE ARTICLE-----------------------------------------
 router.get('/:articleID/delete', function (request, response) {
 
-    const articleID = require.params.articleID
+    const articleID = request.params.articleID
 
     db.getArticleById(articleID, function (error, Article) {
 
@@ -161,21 +163,22 @@ router.get('/:articleID/delete', function (request, response) {
             Article
         }
 
-        response.render('deleteArticle.hbs')
+        response.render('deleteArticle.hbs', model)
     })
 })
 
 
 router.post('/:articleID/delete', function (request, response) {
 
-    const articleID = require.params.articleID
+    const articleID = request.params.articleID
 
     /*if (!request.session.isLoggedIn) {
         errors.push("Not logged in.")
     } */
 
     db.deleteArticleById(articleID, function (error) {
-        response.redirect('/')
+
+        response.redirect('/articles')
     })
 })
 //--------------------DELETE ARTICLE-----------------------------------------

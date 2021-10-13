@@ -33,11 +33,18 @@ router.get('/', function (request, response) {
 
 })
 
+//--------------------CREATE Recipe-----------------------------------------
+router.get('/create', function (request, response) {
+
+    response.render('createRecipe.hbs')
+})
+
 router.get('/:recipeID', function (request, response) { // get recipe id 
 
     const recipeID = request.params.recipeID
 
-    db.getRecipeByID(recipeID, function (error, Recipe) {
+    db.getRecipeById(recipeID, function (error, Recipe) {
+        
         const model = {
             Recipe
         }
@@ -45,22 +52,11 @@ router.get('/:recipeID', function (request, response) { // get recipe id
     })
 })
 
-
-
-//--------------------CREATE Recipe-----------------------------------------
-router.get('/recipe/create', function (request, response) {
-	response.render('createRecipe.hbs')
-})
-
-router.get('/createRecipe', function (request, response) {
-	response.render('createRecipe.hbs')
-})
-
-router.post('/recipe/create', function (request, response) {
+router.post('/create', function (request, response) {
 
     const name = request.body.name                         
     const image = request.body.image                        
-    const desc = request.body.desc     
+    const desc = request.body.desc   
 
     const errors = validators.getRecipeValidationErrors(name, desc)
 
@@ -70,7 +66,7 @@ router.post('/recipe/create', function (request, response) {
 
     if (errors.length == 0) {
 
-        db.createFaq(name, image, desc, function (error, recipeID) {
+        db.createRecipe(name, image, desc, function (error, recipeID) {
 
             if (error) {
 
@@ -88,7 +84,7 @@ router.post('/recipe/create', function (request, response) {
 
             } else {
 
-                response.redirect('/')
+                response.redirect('/recipes')
             }
         })
 
@@ -112,7 +108,7 @@ router.post('/recipe/create', function (request, response) {
 router.get('/:recipeID/update', function (request, response) {
 	const recipeID = request.params.recipeID
 
-	getRecipeByID(recipeID, function (error, Recipe) {
+	db.getRecipeById(recipeID, function (error, Recipe) {
 		const model =
 		{
 			Recipe
@@ -138,8 +134,8 @@ router.post('/:recipeID/update', function (request, response) {
 
     if (errors.length == 0) {
 
-        db.updateFaqById(recipeID, name, desc, function (error) {
-            response.redirect('/')
+        db.updateRecipeById(recipeID, name, desc, function (error) {
+            response.redirect('/recipes')
         })
 
     } else {
@@ -163,7 +159,7 @@ router.get('/:recipeID/delete', function (request, response) {
 	
     const recipeID = request.params.recipeID
 
-	db.getRecipeByID(recipeID, function (error, Recipe) {
+	db.getRecipeById(recipeID, function (error, Recipe) {
 		const model =
 		{
 			Recipe
@@ -175,14 +171,14 @@ router.get('/:recipeID/delete', function (request, response) {
 
 router.post('/:recipeID/delete', function (request, response) {
 
-    const recipeID = require.params.recipeID
+    const recipeID = request.params.recipeID
 
     /*if (!request.session.isLoggedIn) {
         errors.push("Not logged in.")
     } */
 
     db.deleteRecipeById(recipeID, function (error) {
-        response.redirect('/recipes.hbs')
+        response.redirect('/recipes')
     })
 })
 //--------------------/DELETE RECIPE-----------------------------------------

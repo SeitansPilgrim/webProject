@@ -5,11 +5,10 @@
 {{#if session.isLoggedIn}}
 <div class="columns">
 	<div class="column col-12">
-		<a href="/createArticle">Create new Article</a>
+		<a href="/articles/create">Create new Article</a>
 	</div>
 </div>
 {{/if}}
-
 
 {{#if hasDatabaseError}}
 <p>Couldn't fetch the articles at the moment, try again later.</p>
@@ -27,11 +26,11 @@
 	{{#if ../session.isLoggedIn}}
 	<div style="text-align: right;">
 
-		<a href="/reading/{{articleID}}/delete">
+		<a href="/articles/{{articleID}}/delete">
 			<i class="icon icon-delete"></i>
 		</a>
 
-		<a href="/reading/{{articleID}}/update">
+		<a href="/articles/{{articleID}}/update">
 			<i class="icon icon-edit"></i>
 		</a>
 
