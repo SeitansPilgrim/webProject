@@ -1,8 +1,10 @@
-const { request } = require('express')
 const express = require('express')
 const bcrypt = require('bcryptjs')
+const csurf = require('csurf')
 
+const csrfProtection = csurf()
 const router = express.Router()
+
 
 const ADMIN_USERNAME = 's'
 const ADMIN_PASSWORD = 's'
@@ -10,12 +12,12 @@ const HASH_PASSWORD = bcrypt.hashSync(ADMIN_PASSWORD, 8)
 
 console.log(HASH_PASSWORD)
 
-router.get('/login', function (request, response) {
-    response.render('login.hbs')
+router.get('/login',csrfProtection, function (request, response) {
+    response.render('login.hbs', { csrfToken: request.csrfToken() })
 })
 
 
-router.post('/login', function (request, response) {
+router.post('/login', csrfProtection, function (request, response) {
 
     const username = request.body.username
     const password = request.body.password

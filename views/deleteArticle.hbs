@@ -5,6 +5,7 @@
     <p>Really delete the article named "{{Article.title}}" ?</p>
 
     <form action="/articles/{{Article.articleID}}/delete" method="POST">
+    <input type="hidden" name="_csrf" value = "{{csrfToken}}">
         <input type="submit" value="confirm delete">
     </form>
 

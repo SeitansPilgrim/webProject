@@ -1,10 +1,14 @@
 const express = require('express')
 const validators = require('../validators')
+const csurf = require('csurf')
+
+const csrfProtection = csurf()
+
 const router = express.Router()
 
 const db = require('../database')
 
-router.get('/', function (request, response) {
+router.get('/',csrfProtection, function (request, response) {
 
     db.GetAllArticles(function (error, Article) {
 
@@ -12,7 +16,8 @@ router.get('/', function (request, response) {
             const model =
             {
                 hasDatabaseError: true,
-                Article: []
+                Article: [],
+                csrfToken: request.csrfToken()
             }
 
             response.render('articles.hbs', model)
@@ -22,7 +27,8 @@ router.get('/', function (request, response) {
             const model =
             {
                 hasDatabaseError: false,
-                Article
+                Article, 
+                csrfToken: request.csrfToken()
             }
 
             response.render('articles.hbs', model)
@@ -33,24 +39,26 @@ router.get('/', function (request, response) {
 })
 
 //--------------------CREATE ARTICLE-----------------------------------------
-router.get('/create', function (request, response) {
-    response.render('createArticle.hbs')
+router.get('/create',csrfProtection, function (request, response) {
+    response.render('createArticle.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:articleID', function (request, response) { // get article id
+router.get('/:articleID', csrfProtection, function (request, response) { // get article id
 
     const articleID = request.params.articleID
 
     db.getArticleById(articleID, function (error, Article) {
-        console.log("i get id")
+        
         const model = {
-            Article
+            Article,
+            csrfToken: request.csrfToken()
         }
-        response.render('articles.hbs')
+
+        response.render('articles.hbs', model)
     })
 })
 
-router.post('/create', function (request, response) {
+router.post('/create', csrfProtection, function (request, response) {
 
     const title = request.body.title
     const article = request.body.article
@@ -73,10 +81,11 @@ router.post('/create', function (request, response) {
                 {
                     errors,
                     title,
-                    article
+                    article,
+                    csrfToken: request.csrfToken()
                 }
 
-                response.render('createArticle.hbs')
+                response.render('createArticle.hbs', model)
 
             } else {
 
@@ -90,7 +99,8 @@ router.post('/create', function (request, response) {
         {
             errors,
             title,
-            article
+            article,
+            csrfToken: request.csrfToken()
         }
 
         response.render('createArticle.hbs', model)
@@ -101,7 +111,7 @@ router.post('/create', function (request, response) {
 
 
 //--------------------UPDATE ARTICLE-----------------------------------------
-router.get('/:articleID/update', function (request, response) {
+router.get('/:articleID/update', csrfProtection, function (request, response) {
 
     const articleID = request.params.articleID
 
@@ -109,14 +119,15 @@ router.get('/:articleID/update', function (request, response) {
 
         const model = {
 
-            Article
+            Article,
+            csrfToken: request.csrfToken()
         }
 
         response.render('updateArticle.hbs', model)
     })
 })
 
-router.post('/:articleID/update', function (request, response) {
+router.post('/:articleID/update', csrfProtection, function (request, response) {
 
     const articleID = request.params.articleID                         
     const title = request.body.title
@@ -142,7 +153,8 @@ router.post('/:articleID/update', function (request, response) {
             Article: {
                 articleID,
                 title,
-                article
+                article,
+                csrfToken: request.csrfToken()
             }
         }
 
@@ -153,14 +165,15 @@ router.post('/:articleID/update', function (request, response) {
 //--------------------/UPDATE ARTICLE-----------------------------------------
 
 //--------------------DELETE ARTICLE-----------------------------------------
-router.get('/:articleID/delete', function (request, response) {
+router.get('/:articleID/delete', csrfProtection, function (request, response) {
 
     const articleID = request.params.articleID
 
     db.getArticleById(articleID, function (error, Article) {
 
         const model = {
-            Article
+            Article,
+            csrfToken: request.csrfToken()
         }
 
         response.render('deleteArticle.hbs', model)
@@ -168,7 +181,7 @@ router.get('/:articleID/delete', function (request, response) {
 })
 
 
-router.post('/:articleID/delete', function (request, response) {
+router.post('/:articleID/delete', csrfProtection, function (request, response) {
 
     const articleID = request.params.articleID
 

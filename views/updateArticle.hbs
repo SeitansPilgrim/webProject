@@ -1,17 +1,18 @@
 <h1>Update Article</h1>
 
 {{#if errors.length}}
-	<p>Couldn't edit the article because:</p>
-	<ul>
-		{{#each errors}}
-			<li>{{this}}</li>
-		{{/each}}
-	</ul>
+<p>Couldn't edit the article because:</p>
+<ul>
+	{{#each errors}}
+	<li>{{this}}</li>
+	{{/each}}
+</ul>
 {{/if}}
 
 <form action="/articles/{{Article.articleID}}/update" method="POST">
-	
-    <div>
+	<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+	<div>
 		Question: <input type="text" name="title" value="{{Article.title}}">
 	</div>
 
