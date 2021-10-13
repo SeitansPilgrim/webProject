@@ -1,11 +1,15 @@
 const express = require('express')
 const validators = require('../validators')
+const csurf = require('csurf')
+
+const csrfProtection = csurf()
+
 const router = express.Router()
 
 const db = require('../database')
 
 
-router.get('/', function (request, response) {
+router.get('/', csrfProtection, function (request, response) {
 
     db.getAllRecipes(function (error, Recipe) {
 
@@ -13,7 +17,8 @@ router.get('/', function (request, response) {
             const model =
             {
                 hasDatabaseError: true,
-                Recipe: []
+                Recipe: [],
+                csrfToken: request.csrfToken()
             }
 
             response.render('recipes.hbs', model)
@@ -23,7 +28,8 @@ router.get('/', function (request, response) {
             const model =
             {
                 hasDatabaseError: false,
-                Recipe
+                Recipe,
+                csrfToken: request.csrfToken()
             }
 
             response.render('recipes.hbs', model)
@@ -34,25 +40,26 @@ router.get('/', function (request, response) {
 })
 
 //--------------------CREATE Recipe-----------------------------------------
-router.get('/create', function (request, response) {
+router.get('/create',csrfProtection, function (request, response) {
 
-    response.render('createRecipe.hbs')
+    response.render('createRecipe.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:recipeID', function (request, response) { // get recipe id 
+router.get('/:recipeID',csrfProtection, function (request, response) { // get recipe id 
 
     const recipeID = request.params.recipeID
 
     db.getRecipeById(recipeID, function (error, Recipe) {
         
         const model = {
-            Recipe
+            Recipe,
+            csrfToken: request.csrfToken()
         }
-        response.render('recipes.hbs')
+        response.render('recipes.hbs', model)
     })
 })
 
-router.post('/create', function (request, response) {
+router.post('/create',csrfProtection, function (request, response) {
 
     const name = request.body.name                         
     const image = request.body.image                        
@@ -77,10 +84,11 @@ router.post('/create', function (request, response) {
                     errors,
                     name,
                     image, 
-                    desc
+                    desc,
+                    csrfToken: request.csrfToken()
                 }
 
-                response.render('createRecipe.hbs')
+                response.render('createRecipe.hbs', model)
 
             } else {
 
@@ -95,7 +103,8 @@ router.post('/create', function (request, response) {
             errors,
             name,
             image, 
-            desc
+            desc,
+            csrfToken: request.csrfToken()
         }
 
         response.render('createRecipe.hbs', model)
@@ -105,13 +114,14 @@ router.post('/create', function (request, response) {
 //--------------------/CREATE Recipe-----------------------------------------
 
 //--------------------UPDATE RECIPE-----------------------------------------
-router.get('/:recipeID/update', function (request, response) {
+router.get('/:recipeID/update',csrfProtection, function (request, response) {
 	const recipeID = request.params.recipeID
 
 	db.getRecipeById(recipeID, function (error, Recipe) {
 		const model =
 		{
-			Recipe
+			Recipe,
+            csrfToken: request.csrfToken()
 		}
 
 		response.render('updateRecipe.hbs', model)
@@ -119,7 +129,7 @@ router.get('/:recipeID/update', function (request, response) {
 })
 
 
-router.post('/:recipeID/update', function (request, response) {
+router.post('/:recipeID/update',csrfProtection, function (request, response) {
 
     const recipeID = request.params.recipeID                         
     const name = request.body.name
@@ -145,7 +155,8 @@ router.post('/:recipeID/update', function (request, response) {
             Recipe: {
                 recipeID,
                 name,
-                desc
+                desc,
+                csrfToken: request.csrfToken()
             }
         }
 
@@ -155,21 +166,22 @@ router.post('/:recipeID/update', function (request, response) {
 //--------------------/UPDATE  RECIPE-----------------------------------------
 
 //--------------------DELETE RECIPE-----------------------------------------
-router.get('/:recipeID/delete', function (request, response) {
+router.get('/:recipeID/delete',csrfProtection, function (request, response) {
 	
     const recipeID = request.params.recipeID
 
 	db.getRecipeById(recipeID, function (error, Recipe) {
 		const model =
 		{
-			Recipe
+			Recipe,
+            csrfToken: request.csrfToken()
 		}
 
 		response.render('deleteRecipe.hbs', model)
 	})
 })
 
-router.post('/:recipeID/delete', function (request, response) {
+router.post('/:recipeID/delete',csrfProtection, function (request, response) {
 
     const recipeID = request.params.recipeID
 

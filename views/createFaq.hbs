@@ -1,6 +1,7 @@
 <h1>new FAQ</h1>
 
 <form action="/faq/create" method="POST">
+<input type="hidden" name="_csrf" value = "{{csrfToken}}">
 
       Q:   <input type="text" name="question">
       A:  <textarea name="answer"></textarea>

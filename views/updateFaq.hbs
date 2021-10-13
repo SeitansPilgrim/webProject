@@ -12,6 +12,7 @@
 
 
 <form action="/faq/{{FAQ.faqID}}/update" method="POST">
+<input type="hidden" name="_csrf" value = "{{csrfToken}}">
 	
     <div>
 		Question: <input type="text" name="question" value="{{FAQ.question}}">

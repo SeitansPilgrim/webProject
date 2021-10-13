@@ -5,6 +5,7 @@
     <p>Really delete the FAQ named "{{FAQ.question}}" ?</p>
 
     <form action="/faq/{{FAQ.faqID}}/delete" method="POST">
+    <input type="hidden" name="_csrf" value = "{{csrfToken}}">
         <input type="submit" value="confirm delete">
     </form>
 

@@ -22,8 +22,6 @@ router.post('/login', csrfProtection, function (request, response) {
     const username = request.body.username
     const password = request.body.password
 
-    console.log(HASH_PASSWORD)
-
     if (username == ADMIN_USERNAME && bcrypt.compare(password, HASH_PASSWORD)) {
         request.session.isLoggedIn = true
         // TODO: Do something better than redirecting to start page.

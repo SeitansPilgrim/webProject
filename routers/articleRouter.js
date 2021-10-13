@@ -8,6 +8,7 @@ const router = express.Router()
 
 const db = require('../database')
 
+
 router.get('/',csrfProtection, function (request, response) {
 
     db.GetAllArticles(function (error, Article) {

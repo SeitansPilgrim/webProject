@@ -5,6 +5,7 @@
     <p>Really delete the recipe named "{{Recipe.name}}" ?</p>
 
     <form action="/recipes/{{Recipe.recipeID}}/delete" method="post">
+    <input type="hidden" name="_csrf" value = "{{csrfToken}}">
         <input type="submit" value="confirm delete">
     </form>
 

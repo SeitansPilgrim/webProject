@@ -1,6 +1,7 @@
 <h1>new Recipe</h1>
 
 <form action="/recipes/create" method="POST">
+<input type="hidden" name="_csrf" value = "{{csrfToken}}">
 
       Title:   <input type="text" name="name">
       Image:   <textarea name="image"></textarea>

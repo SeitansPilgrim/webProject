@@ -1,11 +1,15 @@
 const express = require('express')
 const validators = require('../validators')
+const csurf = require('csurf')
+
+const csrfProtection = csurf()
+
 const router = express.Router()
 
 const db = require('../database')
 
 
-router.get('/', function (request, response) {
+router.get('/',csrfProtection, function (request, response) {
 
     db.getAllFaqs(function (error, FAQ) {
 
@@ -13,7 +17,8 @@ router.get('/', function (request, response) {
             const model =
             {
                 hasDatabaseError: true,
-                FAQ: []
+                FAQ: [],
+                csrfToken: request.csrfToken()
             }
 
             response.render('faq.hbs', model)
@@ -23,7 +28,8 @@ router.get('/', function (request, response) {
             const model =
             {
                 hasDatabaseError: false,
-                FAQ
+                FAQ,
+                csrfToken: request.csrfToken()
             }
 
             response.render('faq.hbs', model)
@@ -34,24 +40,25 @@ router.get('/', function (request, response) {
 })
 
 //--------------------CREATE FAQ-----------------------------------------
-router.get('/create', function (request, response) {
+router.get('/create',csrfProtection, function (request, response) {
     
-	response.render('createFaq.hbs')
+	response.render('createFaq.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:faqID', function (request, response) { // get faq id 
+router.get('/:faqID',csrfProtection, function (request, response) { // get faq id 
 
     const faqID = request.params.faqID
 
     db.getFaqById(faqID, function (error, FAQ) {
         const model = {
-            FAQ
+            FAQ,
+            csrfToken: request.csrfToken()
         }
-        response.render('faq.hbs')
+        response.render('faq.hbs', model)
     })
 })
 
-router.post('/create', function (request, response) {
+router.post('/create',csrfProtection, function (request, response) {
 
     const question = request.body.question
     const answer = request.body.answer
@@ -74,10 +81,11 @@ router.post('/create', function (request, response) {
                 {
                     errors,
                     question,
-                    answer
+                    answer,
+                    csrfToken: request.csrfToken()
                 }
 
-                response.render('createFaq.hbs')
+                response.render('createFaq.hbs', model)
 
             } else {
 
@@ -91,7 +99,8 @@ router.post('/create', function (request, response) {
         {
             errors,
             question,
-            answer
+            answer,
+            csrfToken: request.csrfToken()
         }
 
         response.render('createFaq.hbs', model)
@@ -102,20 +111,21 @@ router.post('/create', function (request, response) {
 
 //--------------------UPDATE FAQ-----------------------------------------
 
-router.get('/:faqID/update', function (request, response) {
+router.get('/:faqID/update',csrfProtection, function (request, response) {
 	const faqID = request.params.faqID
 
 	db.getFaqById(faqID, function (error, FAQ) {
 		const model =
 		{
-			FAQ
+			FAQ,
+            csrfToken: request.csrfToken()
 		}
 
 		response.render('updateFaq.hbs', model)
 	})
 })
 
-router.post('/:faqID/update', function (request, response) {
+router.post('/:faqID/update',csrfProtection, function (request, response) {
 
     const faqID = request.params.faqID                         
     const question = request.body.question
@@ -141,7 +151,8 @@ router.post('/:faqID/update', function (request, response) {
             FAQ: {
                 faqID,
                 question,
-                answer
+                answer,
+                csrfToken: request.csrfToken()
             }
         }
 
@@ -152,21 +163,22 @@ router.post('/:faqID/update', function (request, response) {
 //--------------------/UPDATE  FAQ-----------------------------------------
 
 //--------------------DELETE FAQ-----------------------------------------
-router.get('/:faqID/delete', function (request, response) {
+router.get('/:faqID/delete',csrfProtection, function (request, response) {
 	
     const faqID = request.params.faqID
 
 	db.getFaqById(faqID, function (error, FAQ) {
 		const model =
 		{
-			FAQ
+			FAQ,
+            csrfToken: request.csrfToken()
 		}
 
 		response.render('deleteFaq.hbs', model)
 	})
 })
 
-router.post('/:faqID/delete', function (request, response) {
+router.post('/:faqID/delete',csrfProtection, function (request, response) {
     
     const faqID = request.params.faqID
 
