@@ -1,0 +1,11 @@
+
+{{#if Recipe}}
+
+	<h1>{{Recipe.name}}</h1>
+    <img src={{Recipe.image}} alt="bild" width="100%" height="">
+	<p>{{Recipe.desc}}</p>
+	
+{{else}}
+	<h1>Not found</h1>
+	<p>The product doesn't exist.</p>
+{{/if}}

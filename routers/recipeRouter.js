@@ -55,7 +55,7 @@ router.get('/:recipeID',csrfProtection, function (request, response) { // get re
             Recipe,
             csrfToken: request.csrfToken()
         }
-        response.render('recipes.hbs', model)
+        response.render('recipe.hbs', model)
     })
 })
 
