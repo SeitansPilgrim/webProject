@@ -1,20 +1,23 @@
 <h1>Update FAQ</h1>
 
 {{#if errors.length}}
-	<p>Couldn't edit the FAQ because:</p>
-	<ul>
-		{{#each errors}}
-			<li>{{this}}</li>
-		{{/each}}
-	</ul>
+<p>Couldn't edit the FAQ because:</p>
+<ul>
+	{{#each errors}}
+	<li>{{this}}</li>
+	{{/each}}
+</ul>
 {{/if}}
 
 
+{{#if hasDatabaseError}}
+<p>Faq you are looking for does not exist</p>
 
+{{else}}
 <form action="/faq/{{FAQ.faqID}}/update" method="POST">
-<input type="hidden" name="_csrf" value = "{{csrfToken}}">
-	
-    <div>
+	<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+	<div>
 		Question: <input type="text" name="question" value="{{FAQ.question}}">
 	</div>
 
@@ -25,5 +28,5 @@
 	<div>
 		<input type="submit" value="Update">
 	</div>
-
 </form>
+{{/if}}

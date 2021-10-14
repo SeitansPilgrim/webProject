@@ -2,11 +2,25 @@
 
     <h1>Delete FAQ</h1>
 
-    <p>Really delete the FAQ named "{{FAQ.question}}" ?</p>
+    {{#if errors.length}}
+    <p>Couldn't edit the FAQ because:</p>
+    <ul>
+        {{#each errors}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+
+    {{#if hasDatabaseError}}
+    <p>Faq you are looking for does not exist</p>
+
+    {{else}}
+    <p>Really delete the FAQ question "{{FAQ.question}}" ?</p>
 
     <form action="/faq/{{FAQ.faqID}}/delete" method="POST">
-    <input type="hidden" name="_csrf" value = "{{csrfToken}}">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <input type="submit" value="confirm delete">
     </form>
+    {{/if}}
 
 </div>

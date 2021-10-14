@@ -5,6 +5,8 @@ const MIN_ARTICLE_LENGTH = 1;
 const MIN_NAME_LENGTH = 1;
 const MIN_DESC_LENGTH = 1;
 
+const MIN_ID_LENGTH = 1; 
+
 exports.getFaqValidationErrors = function(question, answer) {
 	const validationErrors = []
 
@@ -40,6 +42,16 @@ exports.getRecipeValidationErrors = function(name, desc) {
 
 	if (desc.length < MIN_DESC_LENGTH) {
 		validationErrors.push("Description must be at least " + MIN_DESC_LENGTH + " characters")
+	}
+	return validationErrors
+}
+
+exports.getFaqIdValidationErrors = function(faqID){
+	
+	const validationErrors = []
+
+	if(faqID.length < MIN_ID_LENGTH){
+		validationErrors.push("Id must be at least " + MIN_ID_LENGTH + "characters")
 	}
 	return validationErrors
 }

@@ -9,7 +9,7 @@ const router = express.Router()
 const db = require('../database')
 
 
-router.get('/',csrfProtection, function (request, response) {
+router.get('/', csrfProtection, function (request, response) {
 
     db.getAllFaqs(function (error, FAQ) {
 
@@ -39,26 +39,52 @@ router.get('/',csrfProtection, function (request, response) {
 
 })
 
-//--------------------CREATE FAQ-----------------------------------------
-router.get('/create',csrfProtection, function (request, response) {
-    
-	response.render('createFaq.hbs', { csrfToken: request.csrfToken() })
+//--------------------CREATE FAQ------------------------------------------
+router.get('/create', csrfProtection, function (request, response) {
+
+    response.render('createFaq.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:faqID',csrfProtection, function (request, response) { // get faq id 
+router.get('/:faqID', csrfProtection, function (request, response) {
 
     const faqID = request.params.faqID
 
+    console.log("get faq id")
+
     db.getFaqById(faqID, function (error, FAQ) {
-        const model = {
-            FAQ,
-            csrfToken: request.csrfToken()
+
+        console.log("get faq by id")
+
+        if (error) {
+
+            console.log("error")
+
+            const model =
+            {
+                hasDatabaseError: true,
+                FAQ: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.redirect('faq.hbs', model)
+
+        } else {
+
+            console.log("no error")
+
+            const model =
+            {
+                hasDatabaseError: false,
+                FAQ,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('faq.hbs', model)
         }
-        response.render('faq.hbs', model)
     })
 })
 
-router.post('/create',csrfProtection, function (request, response) {
+router.post('/create', csrfProtection, function (request, response) {
 
     const question = request.body.question
     const answer = request.body.answer
@@ -110,24 +136,39 @@ router.post('/create',csrfProtection, function (request, response) {
 //--------------------/CREATE FAQ-----------------------------------------
 
 //--------------------UPDATE FAQ-----------------------------------------
+router.get('/:faqID/update', csrfProtection, function (request, response) {
 
-router.get('/:faqID/update',csrfProtection, function (request, response) {
-	const faqID = request.params.faqID
+    const faqID = request.params.faqID
 
-	db.getFaqById(faqID, function (error, FAQ) {
-		const model =
-		{
-			FAQ,
-            csrfToken: request.csrfToken()
-		}
+    db.getFaqById(faqID, function (error, FAQ) {
 
-		response.render('updateFaq.hbs', model)
-	})
+        if (error) {
+
+            const model = {
+                hasDatabaseError: true,
+                FAQ: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('updateFaq.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                hasDatabaseError: false,
+                FAQ,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('updateFaq.hbs', model)
+        }
+    })
 })
 
-router.post('/:faqID/update',csrfProtection, function (request, response) {
+router.post('/:faqID/update', csrfProtection, function (request, response) {
 
-    const faqID = request.params.faqID                         
+    const faqID = request.params.faqID
     const question = request.body.question
     const answer = request.body.answer
 
@@ -141,12 +182,31 @@ router.post('/:faqID/update',csrfProtection, function (request, response) {
     if (errors.length == 0) {
 
         db.updateFaqbyId(faqID, question, answer, function (error) {
-            response.redirect('/faq')
+
+            if (error) {
+
+                errors.push("Internal server error")
+
+                const model =
+                {
+                    errors,
+                    faqID,
+                    question,
+                    answer
+                }
+
+                response.render('updateFaq.hbs', model)
+
+            } else {
+
+                response.redirect('/faq')
+            }
         })
 
     } else {
 
-        const model = {
+        const model =
+        {
             errors,
             FAQ: {
                 faqID,
@@ -163,34 +223,81 @@ router.post('/:faqID/update',csrfProtection, function (request, response) {
 //--------------------/UPDATE  FAQ-----------------------------------------
 
 //--------------------DELETE FAQ-----------------------------------------
-router.get('/:faqID/delete',csrfProtection, function (request, response) {
-	
+router.get('/:faqID/delete', csrfProtection, function (request, response) {
+
     const faqID = request.params.faqID
 
-	db.getFaqById(faqID, function (error, FAQ) {
-		const model =
-		{
-			FAQ,
-            csrfToken: request.csrfToken()
-		}
+    db.getFaqById(faqID, function (error, FAQ) {
 
-		response.render('deleteFaq.hbs', model)
-	})
-})
+        if (error) {
 
-router.post('/:faqID/delete',csrfProtection, function (request, response) {
-    
-    const faqID = request.params.faqID
+            const model =
+            {
+                hasDatabaseError: true,
+                FAQ: []
+            }
+            response.render('deleteFaq.hbs', model)
 
-    /*if (!request.session.isLoggedIn) {
-        errors.push("Not logged in.")
-    } */
+        } else {
 
-    db.deleteFaqById(faqID, function (error) {
-        response.redirect('/faq')
+            const model =
+            {
+                hasDatabaseError: false,
+                FAQ,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('deleteFaq.hbs', model)
+
+        }
     })
 })
-//--------------------/DELETE FAQ-----------------------------------------
 
+router.post('/:faqID/delete', csrfProtection, function (request, response) {
+
+    const faqID = request.params.faqID
+
+    const errors = validators.getFaqIdValidationErrors(faqID)
+
+    if (!request.session.isLoggedIn) {
+        errors.push("Not logged in.")
+    }
+
+    if (errors.length == 0) {
+
+        db.deleteFaqById(faqID, function (error) {
+
+            if (error) {
+
+                errors.push("Internal server error.")
+
+                const model =
+                {
+                    errors,
+                    faqID
+                }
+                response.render('deleteFaq.hbs', model)
+
+            } else {
+
+                response.redirect('/faq')
+            }
+        })
+
+    } else {
+
+        const model =
+        {
+            errors,
+            FAQ: {
+                faqID,
+                csrfToken: request.csrfToken()
+            }
+        }
+
+        response.render('deleteFaq.hbs', model)
+    }
+})
+//--------------------/DELETE FAQ-----------------------------------------
 
 module.exports = router

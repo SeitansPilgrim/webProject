@@ -10,8 +10,6 @@ const ADMIN_USERNAME = 's'
 const ADMIN_PASSWORD = 's'
 const HASH_PASSWORD = bcrypt.hashSync(ADMIN_PASSWORD, 8)
 
-console.log(HASH_PASSWORD)
-
 router.get('/login',csrfProtection, function (request, response) {
     response.render('login.hbs', { csrfToken: request.csrfToken() })
 })

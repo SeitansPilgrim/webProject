@@ -5,7 +5,7 @@ const db = new sqlite3.Database('database.sqlite3')
 exports.getAllFaqs = function (callback) {
 
     const query = "SELECT * FROM FAQ"
-    db.all(query, function (error, FAQ) { 
+    db.all(query, function (error, FAQ) {
         callback(error, FAQ)
     })
 }
@@ -31,43 +31,84 @@ exports.GetAllArticles = function (callback) {
 
 //-------------------GET RECOURCES BY ID-------------------------------------------
 
-exports.getFaqById = function(faqID, callback) {
-	const query = "SELECT * FROM FAQ WHERE faqID = ? LIMIT 1"
-	const values = [faqID]
+exports.getFaqById = function (faqID, callback) {
+    const query = "SELECT * FROM FAQ WHERE faqID = ? LIMIT 1"
+    const values = [faqID]
 
-	db.get(query, values, function (error, FAQ) {
-		callback(error, FAQ)
-	})
+    db.get(query, values, function (error, FAQ) {
+
+        if (FAQ == undefined) {
+
+            const model =
+            {
+                error,
+                FAQ
+            }
+
+            callback(model)
+
+        } else {
+            callback(error, FAQ)
+        }
+
+    })
 }
 
-exports.getArticleById = function(articleID, callback) {
-	const query = "SELECT * FROM Article WHERE articleID = ? LIMIT 1"
-	const values = [articleID]
+exports.getArticleById = function (articleID, callback) {
+    const query = "SELECT * FROM Article WHERE articleID = ? LIMIT 1"
+    const values = [articleID]
 
-	db.get(query, values, function (error, Article) {
-		callback(error, Article)
-	})
+    db.get(query, values, function (error, Article) {
+
+        if (Article == undefined) {
+
+            const model =
+            {
+                error,
+                Article
+            }
+
+            callback(model)
+
+        } else {
+            callback(error, Article)
+        }
+    })
 }
 
-exports.getRecipeById = function(recipeID, callback) {
+exports.getRecipeById = function (recipeID, callback) {
 
-	const query = "SELECT * FROM Recipe WHERE recipeID = ? LIMIT 1"
-	const values = [recipeID]
+    const query = "SELECT * FROM Recipe WHERE recipeID = ? LIMIT 1"
+    const values = [recipeID]
 
-	db.get(query, values, function (error, Recipe) {
-		callback(error, Recipe)
-	})
+    db.get(query, values, function (error, Recipe) {
+
+        if (Recipe == undefined) {
+
+            const model = 
+            {
+                error,
+                Recipe
+            }
+
+            callback(model)
+
+        } else {
+
+            callback(error, Recipe)
+        }
+    })
 }
 //-------------------/GET RECOURCES BY ID-------------------------------------------
 
 //--------------------CREATE FAQ----------------------------------------------
-exports.createFaq = function (question, answer, callback) { 
+exports.createFaq = function (question, answer, callback) {
 
     const query = "INSERT INTO FAQ(question, answer) VALUES(?,?) "
     const values = [question, answer]
 
     db.run(query, values, function (error) {
-        callback(error, this.lastID)               
+        callback(error, this.lastID)
     })
 }
 
@@ -80,7 +121,7 @@ exports.createArticle = function (title, article, callback) {
     const values = [title, article]
 
     db.run(query, values, function (error) {
-        callback(error, this.lastID)                      
+        callback(error, this.lastID)
     })
 }
 //--------------------/CREATE Article-----------------------------------------
@@ -92,7 +133,7 @@ exports.createRecipe = function (name, image, desc, callback) {
     const values = [name, image, desc]
 
     db.run(query, values, function (error) {
-        callback(error, this.lastID)                 
+        callback(error, this.lastID)
     })
 }
 //--------------------/CREATE Recipe-----------------------------------------
@@ -104,7 +145,7 @@ exports.updateFaqbyId = function (faqID, question, answer, callback) {
     const values = [question, answer, faqID]
 
     db.run(query, values, function (error) {
-        callback(error)                               
+        callback(error)
     })
 }
 //--------------------/UPDATE  FAQ-----------------------------------------
@@ -117,58 +158,59 @@ exports.updateArticleById = function (articleID, title, article, callback) {
     const values = [title, article, articleID]
 
     db.run(query, values, function (error) {
-        callback(error)                                                  
+        callback(error)
     })
 }
 //--------------------/UPDATE  ARTICLE-----------------------------------------
 
 
 //--------------------UPDATE RECIPE-----------------------------------------
-exports.updateRecipeById = function(recipeID, name, desc, callback) {  
+exports.updateRecipeById = function (recipeID, name, desc, callback) {
 
-		const query = "UPDATE Recipe SET name = ?, desc = ? WHERE recipeID = ?"
-		const values = [name, desc, recipeID]
+    const query = "UPDATE Recipe SET name = ?, desc = ? WHERE recipeID = ?"
+    const values = [name, desc, recipeID]
 
-		db.run(query, values, function (error) {
-			callback(error)                           
-		})
+    db.run(query, values, function (error) {
+        callback(error)
+    })
 }
 //--------------------/UPDATE RECIPE-----------------------------------------
 
 //--------------------DELETE FAQ-----------------------------------------
-exports.deleteFaqById = function (faqID, callback) { 
+exports.deleteFaqById = function (faqID, callback) {
 
     const query = "DELETE FROM FAQ WHERE faqID = ?"
     const values = [faqID]
 
     db.run(query, values, function (error) {
-        callback(error)                         
+            
+            callback(error)  
     })
 }
 //--------------------/DELETE FAQ-----------------------------------------
 
 
 //--------------------DELETE ARTICLE-----------------------------------------
-exports.deleteArticleById = function (articleID, callback) { 
+exports.deleteArticleById = function (articleID, callback) {
 
     const query = "DELETE FROM Article WHERE articleID = ?"
     const values = [articleID]
 
     db.run(query, values, function (error) {
-        callback(error)                             
+        callback(error)
     })
 }
 //--------------------/DELETE ARTICLE-----------------------------------------
 
 
 //--------------------DELETE RECIPE-----------------------------------------
-exports.deleteRecipeById = function (recipeID, callback) { 
+exports.deleteRecipeById = function (recipeID, callback) {
 
     const query = "DELETE FROM Recipe WHERE recipeID = ?"
     const values = [recipeID]
 
     db.run(query, values, function (error) {
-        callback(error)                              
+        callback(error)
     })
 }
 //--------------------/DELETE RECIPE-----------------------------------------
