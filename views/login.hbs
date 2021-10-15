@@ -1,5 +1,14 @@
 <h1>Login</h1>
 
+{{#if errors.length}}
+<p>Could not log in because:</p>
+<ul>
+	{{#each errors}}
+	<li>{{this}}</li>
+	{{/each}}
+</ul>
+{{/if}}
+
 <form action="/auth/login" method="POST">
 <input type="hidden" name="_csrf" value = "{{csrfToken}}">
 	

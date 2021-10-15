@@ -55,3 +55,23 @@ exports.getFaqIdValidationErrors = function(faqID){
 	}
 	return validationErrors
 }
+
+exports.getRecipeIdValidationErrors = function(recipeID){
+	
+	const validationErrors = []
+
+	if(recipeID.length < MIN_ID_LENGTH){
+		validationErrors.push("Id must be at least " + MIN_ID_LENGTH + "characters")
+	}
+	return validationErrors
+}
+
+exports.getArticleIdValidationErrors = function(articleID){
+	
+	const validationErrors = []
+
+	if(articleID.length < MIN_ID_LENGTH){
+		validationErrors.push("Id must be at least " + MIN_ID_LENGTH + "characters")
+	}
+	return validationErrors
+}

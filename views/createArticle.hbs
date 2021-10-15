@@ -1,13 +1,23 @@
 <h1>new ARTICLE</h1>
 
-<form action="/articles/create" method="POST">
-<input type="hidden" name="_csrf" value = "{{csrfToken}}">
+{{#if errors.length}}
+<p>Could not create the faq because:</p>
+<ul>
+    {{#each errors}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
 
-      Title:   <input type="text" name="title">
-      Article:  <textarea name="article"></textarea>
+{{else}}
+<form action="/articles/create" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    Title: <input type="text" name="title">
+    Article: <textarea name="article"></textarea>
 
     <div>
         <input class="float-left" type="submit" value="Create">
     </div>
 
 </form>
+{{/if}}

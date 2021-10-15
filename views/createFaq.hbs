@@ -1,12 +1,22 @@
 <h1>new FAQ</h1>
 
-<form action="/faq/create" method="POST">
-<input type="hidden" name="_csrf" value = "{{csrfToken}}">
+{{#if errors.length}}
+<p>Could not create the faq because:</p>
+<ul>
+    {{#each errors}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
 
-      Q:   <input type="text" name="question">
-      A:  <textarea name="answer"></textarea>
+{{else}}
+<form action="/faq/create" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    Q: <input type="text" name="question">
+    A: <textarea name="answer"></textarea>
 
     <div>
         <input class="float-left" type="submit" value="Create">
     </div>
 </form>
+{{/if}}

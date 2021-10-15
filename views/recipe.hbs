@@ -1,11 +1,12 @@
 
-{{#if Recipe}}
+{{#if hasDatabaseError}}
 
-	<h1>{{Recipe.name}}</h1>
-    <img src={{Recipe.image}} alt="bild" width="100%" height="">
-	<p>{{Recipe.desc}}</p>
-	
+<h4>Couldn't fetch the recipe at the moment, try again later.</h4>
+
 {{else}}
-	<h1>Not found</h1>
-	<p>The product doesn't exist.</p>
+
+<h1>{{Recipe.name}}</h1>
+<img src={{Recipe.image}} alt="bild" width="100%" height="">
+<p>{{Recipe.desc}}</p>
+
 {{/if}}

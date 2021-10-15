@@ -1,19 +1,18 @@
 const express = require('express')
 const validators = require('../validators')
+const db = require('../database')
 const csurf = require('csurf')
 
 const csrfProtection = csurf()
-
 const router = express.Router()
 
-const db = require('../database')
 
-
-router.get('/',csrfProtection, function (request, response) {
+router.get('/', csrfProtection, function (request, response) {
 
     db.GetAllArticles(function (error, Article) {
 
         if (error) {
+
             const model =
             {
                 hasDatabaseError: true,
@@ -22,40 +21,54 @@ router.get('/',csrfProtection, function (request, response) {
             }
 
             response.render('articles.hbs', model)
-        }
 
-        else {
+        } else {
+
             const model =
             {
                 hasDatabaseError: false,
-                Article, 
+                Article,
                 csrfToken: request.csrfToken()
             }
 
             response.render('articles.hbs', model)
         }
-
     })
-
 })
 
 //--------------------CREATE ARTICLE-----------------------------------------
-router.get('/create',csrfProtection, function (request, response) {
+router.get('/create', csrfProtection, function (request, response) {
+
     response.render('createArticle.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:articleID', csrfProtection, function (request, response) { // get article id
+router.get('/:articleID', csrfProtection, function (request, response) {
 
     const articleID = request.params.articleID
 
     db.getArticleById(articleID, function (error, Article) {
-        
-        const model = {
-            Article,
-            csrfToken: request.csrfToken()
-        }
 
-        response.render('articles.hbs', model)
+        if (error) {
+
+            const model =
+            {
+                hasDatabaseError: true,
+                Article: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.redirect('articles.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                Article,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('articles.hbs', model)
+        }
     })
 })
 
@@ -106,7 +119,6 @@ router.post('/create', csrfProtection, function (request, response) {
 
         response.render('createArticle.hbs', model)
     }
-
 })
 //--------------------/CREATE ARTICLE-----------------------------------------
 
@@ -118,19 +130,34 @@ router.get('/:articleID/update', csrfProtection, function (request, response) {
 
     db.getArticleById(articleID, function (error, Article) {
 
-        const model = {
+        if (error) {
 
-            Article,
-            csrfToken: request.csrfToken()
+            const model =
+            {
+                hasDatabaseError: true,
+                Article: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('updateArticle.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                hasDatabaseError: false,
+                Article,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('updateArticle.hbs', model)
         }
-
-        response.render('updateArticle.hbs', model)
     })
 })
 
 router.post('/:articleID/update', csrfProtection, function (request, response) {
 
-    const articleID = request.params.articleID                         
+    const articleID = request.params.articleID
     const title = request.body.title
     const article = request.body.article
 
@@ -144,7 +171,26 @@ router.post('/:articleID/update', csrfProtection, function (request, response) {
     if (errors.length == 0) {
 
         db.updateArticleById(articleID, title, article, function (error) {
-            response.redirect('/articles')
+
+            if (error) {
+
+                errors.push("Internal server error")
+
+                const model =
+                {
+                    errors,
+                    articleID,
+                    title,
+                    article,
+                    csrfToken: request.csrfToken()
+                }
+
+                response.render('updateArticle.hbs', model)
+
+            } else {
+
+                response.redirect('/articles')
+            }
         })
 
     } else {
@@ -161,7 +207,6 @@ router.post('/:articleID/update', csrfProtection, function (request, response) {
 
         response.render('updateArticle.hbs', model)
     }
-
 })
 //--------------------/UPDATE ARTICLE-----------------------------------------
 
@@ -172,12 +217,28 @@ router.get('/:articleID/delete', csrfProtection, function (request, response) {
 
     db.getArticleById(articleID, function (error, Article) {
 
-        const model = {
-            Article,
-            csrfToken: request.csrfToken()
-        }
+        if (error) {
 
-        response.render('deleteArticle.hbs', model)
+            const model = 
+            {
+                hasDatabaseError: true,
+                Article: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('deleteArticle.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                hasDatabaseError: false,
+                Article,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('deleteArticle.hbs', model)
+        }
     })
 })
 
@@ -186,14 +247,48 @@ router.post('/:articleID/delete', csrfProtection, function (request, response) {
 
     const articleID = request.params.articleID
 
-    /*if (!request.session.isLoggedIn) {
+    const errors = validators.getArticleIdValidationErrors(articleID)
+
+    if (!request.session.isLoggedIn) {
         errors.push("Not logged in.")
-    } */
+    }
 
-    db.deleteArticleById(articleID, function (error) {
+    if (errors.length == 0) {
 
-        response.redirect('/articles')
-    })
+        db.deleteArticleById(articleID, function (error) {
+
+            if (error) {
+
+                errors.push("Internal server error")
+
+                const model = 
+                {
+                    errors,
+                    articleID,
+                    csrfToken: request.csrfToken()
+                }
+
+                response.render('deleteArticle.hbs', model)
+
+            } else {
+
+                response.redirect('/articles')
+            }
+        })
+
+    } else {
+
+        const model =
+        {
+            errors,
+            Article: {
+                articleID,
+                csrfToken: request.csrfToken()
+            }
+        }
+
+        response.render('deleteArticle.hbs', model)
+    }
 })
 //--------------------DELETE ARTICLE-----------------------------------------
 

@@ -40,30 +40,46 @@ router.get('/', csrfProtection, function (request, response) {
 })
 
 //--------------------CREATE Recipe-----------------------------------------
-router.get('/create',csrfProtection, function (request, response) {
+router.get('/create', csrfProtection, function (request, response) {
 
     response.render('createRecipe.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:recipeID',csrfProtection, function (request, response) { // get recipe id 
+router.get('/:recipeID', csrfProtection, function (request, response) { // get recipe id 
 
+    console.log(" get id")
     const recipeID = request.params.recipeID
 
     db.getRecipeById(recipeID, function (error, Recipe) {
-        
-        const model = {
-            Recipe,
-            csrfToken: request.csrfToken()
+
+        if (error) {
+
+            const model = {
+                hasDatabaseError: true,
+                Recipe: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('recipe.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                Recipe,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('recipe.hbs', model)
         }
-        response.render('recipe.hbs', model)
     })
 })
 
-router.post('/create',csrfProtection, function (request, response) {
+router.post('/create', csrfProtection, function (request, response) {
 
-    const name = request.body.name                         
-    const image = request.body.image                        
-    const desc = request.body.desc   
+    const name = request.body.name
+    const image = request.body.image
+    const desc = request.body.desc
 
     const errors = validators.getRecipeValidationErrors(name, desc)
 
@@ -83,7 +99,7 @@ router.post('/create',csrfProtection, function (request, response) {
                 {
                     errors,
                     name,
-                    image, 
+                    image,
                     desc,
                     csrfToken: request.csrfToken()
                 }
@@ -92,7 +108,7 @@ router.post('/create',csrfProtection, function (request, response) {
 
             } else {
 
-                response.redirect('/recipes')
+                response.redirect('/recipes/'+recipeID)
             }
         })
 
@@ -102,7 +118,7 @@ router.post('/create',csrfProtection, function (request, response) {
         {
             errors,
             name,
-            image, 
+            image,
             desc,
             csrfToken: request.csrfToken()
         }
@@ -114,24 +130,40 @@ router.post('/create',csrfProtection, function (request, response) {
 //--------------------/CREATE Recipe-----------------------------------------
 
 //--------------------UPDATE RECIPE-----------------------------------------
-router.get('/:recipeID/update',csrfProtection, function (request, response) {
-	const recipeID = request.params.recipeID
+router.get('/:recipeID/update', csrfProtection, function (request, response) {
+    const recipeID = request.params.recipeID
 
-	db.getRecipeById(recipeID, function (error, Recipe) {
-		const model =
-		{
-			Recipe,
-            csrfToken: request.csrfToken()
-		}
+    db.getRecipeById(recipeID, function (error, Recipe) {
 
-		response.render('updateRecipe.hbs', model)
-	})
+        if (error) {
+
+            const model =
+            {
+                hasDatabaseError: true,
+                Recipe: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('updateRecipe.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                hasDatabaseError: false,
+                Recipe,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('updateRecipe.hbs', model)
+        }
+    })
 })
 
 
-router.post('/:recipeID/update',csrfProtection, function (request, response) {
+router.post('/:recipeID/update', csrfProtection, function (request, response) {
 
-    const recipeID = request.params.recipeID                         
+    const recipeID = request.params.recipeID
     const name = request.body.name
     const desc = request.body.desc
 
@@ -145,7 +177,25 @@ router.post('/:recipeID/update',csrfProtection, function (request, response) {
     if (errors.length == 0) {
 
         db.updateRecipeById(recipeID, name, desc, function (error) {
-            response.redirect('/recipes')
+
+            if (error) {
+
+                errors.push("Internal server error")
+
+                const model = {
+                    errors,
+                    recipeID,
+                    name,
+                    desc,
+                    csrfToken: request.csrfToken()
+                }
+
+                response.render('updateRecipe.hbs', model)
+
+            } else {
+
+                response.redirect('/recipes/'+recipeID)
+            }
         })
 
     } else {
@@ -166,33 +216,84 @@ router.post('/:recipeID/update',csrfProtection, function (request, response) {
 //--------------------/UPDATE  RECIPE-----------------------------------------
 
 //--------------------DELETE RECIPE-----------------------------------------
-router.get('/:recipeID/delete',csrfProtection, function (request, response) {
-	
-    const recipeID = request.params.recipeID
-
-	db.getRecipeById(recipeID, function (error, Recipe) {
-		const model =
-		{
-			Recipe,
-            csrfToken: request.csrfToken()
-		}
-
-		response.render('deleteRecipe.hbs', model)
-	})
-})
-
-router.post('/:recipeID/delete',csrfProtection, function (request, response) {
+router.get('/:recipeID/delete', csrfProtection, function (request, response) {
 
     const recipeID = request.params.recipeID
 
-    /*if (!request.session.isLoggedIn) {
-        errors.push("Not logged in.")
-    } */
+    db.getRecipeById(recipeID, function (error, Recipe) {
 
-    db.deleteRecipeById(recipeID, function (error) {
-        response.redirect('/recipes')
+        if (error) {
+
+            const model =
+            {
+                hasDatabaseError: true,
+                Recipe: [],
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('deleteRecipe.hbs', model)
+
+        } else {
+
+            const model =
+            {
+                Recipe,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('deleteRecipe.hbs', model)
+        }
     })
 })
+
+router.post('/:recipeID/delete', csrfProtection, function (request, response) {
+
+    const recipeID = request.params.recipeID
+
+    const errors = validators.getRecipeIdValidationErrors(recipeID)
+
+    if (!request.session.isLoggedIn) {
+        errors.push("Not logged in.")
+    }
+
+    if (errors.length == 0) {
+
+        db.deleteRecipeById(recipeID, function (error) {
+
+            if (error) {
+
+                errors.push("Internal server error.")
+
+                const model =
+                {
+                    errors,
+                    recipeID,
+                    csrfToken: request.csrfToken()
+                }
+
+                response.render('deleteRecipe.hbs', model)
+
+            } else {
+
+                response.redirect('/recipes')
+            }
+        })
+
+    } else {
+
+        const model =
+        {
+            errors,
+            Recipe: {
+                recipeID,
+                csrfToken: request.csrfToken()
+            }
+        }
+
+        response.render('deleteRecipe.hbs', model)
+    }
+})
+
 //--------------------/DELETE RECIPE-----------------------------------------
 
 module.exports = router

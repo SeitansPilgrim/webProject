@@ -2,11 +2,26 @@
 
     <h1>Delete recipe</h1>
 
+    {{#if errors.length}}
+    <p>Couldn't delete the recipe because:</p>
+    <ul>
+        {{#each errors}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+
+    {{else}}
+    {{#if hasDatabaseError}}
+    <p>Recipe you are looking for no longer exists</p>
+
+    {{else}}
     <p>Really delete the recipe named "{{Recipe.name}}" ?</p>
 
     <form action="/recipes/{{Recipe.recipeID}}/delete" method="post">
-    <input type="hidden" name="_csrf" value = "{{csrfToken}}">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <input type="submit" value="confirm delete">
     </form>
+    {{/if}}
+    {{/if}}
 
 </div>
