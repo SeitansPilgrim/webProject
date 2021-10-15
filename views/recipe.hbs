@@ -1,12 +1,20 @@
+<div class="columns">
 
-{{#if hasDatabaseError}}
+    {{#if hasDatabaseError}}
+    <div class="column col-12">
+        <h3 style="text-align: center;">Couldn't fetch the recipe at the moment, try again later.</h3>
+    </div>
 
-<h4>Couldn't fetch the recipe at the moment, try again later.</h4>
+    {{else}}
+    <div class="column col-3"></div>
 
-{{else}}
+    <div class="column col-6">
+    <h1>{{Recipe.name}}</h1>
+    <img src={{Recipe.image}} alt="bild" width="100%" height="">
+    <p>{{Recipe.desc}}</p>
+    </div>
 
-<h1>{{Recipe.name}}</h1>
-<img src={{Recipe.image}} alt="bild" width="100%" height="">
-<p>{{Recipe.desc}}</p>
+    <div class="column col-3"></div>
+    {{/if}}
 
-{{/if}}
+</div>

@@ -2,23 +2,29 @@
 	<h1>Articles</h1>
 </div>
 
+
 {{#if session.isLoggedIn}}
 <div class="columns">
-	<div class="column col-12">
+	<div class="column col-3"></div>
+	<div class="column col-6">
 		<a href="/articles/create">Create new article</a>
 	</div>
+	<div class="column col-3"></div>
 </div>
 {{/if}}
 
 {{#if hasDatabaseError}}
-<p>Could not fetch the articles at the moment, try again later.</p>
+<div class="column col-12">
+	<h3 style="text-align: center;">Could not fetch the articles at the moment, try again later.</h3>
+</div>
 
 {{else}}
 {{#if Article.length}}
 {{#each Article}}
 <div class="columns">
+	<div class="column col-3"></div>
 
-	<div class="column col-4">
+	<div class="column col-6">
 		<h4>{{title}}</h4>
 		<p>{{article}}</p>
 	</div>
@@ -38,6 +44,7 @@
 	{{/if}}
 
 </div>
+<div class="column col-3"></div>
 {{/each}}
 
 {{else}}
