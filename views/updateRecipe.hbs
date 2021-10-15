@@ -1,34 +1,69 @@
-<h1>Update recipe</h1>
-
-{{#if errors.length}}
-<p>Couldn't edit the recipe because:</p>
-<ul>
-	{{#each errors}}
-	<li>{{this}}</li>
-	{{/each}}
-</ul>
-
-
-{{else}}
-{{#if hasDatabaseError}}
-<p>Recipe you are looking for does not exist</p>
-
-{{else}}
-<form action="/recipes/{{Recipe.recipeID}}/update" method="POST">
-<input type="hidden" name="_csrf" value = "{{csrfToken}}">
-
-	<div>
-		Name: <input type="text" name="name" value="{{Recipe.name}}">
+<div class="container">
+	<div class="column col-12" style="text-align: center;">
+		<h1>Update recipe</h1>
 	</div>
 
-	<div>
-		Description: <textarea name="desc">{{Recipe.desc}}</textarea>
+	{{#if errors.length}}
+	<div class="columns">
+		<div class="column col-3"></div>
+
+		<div class="column col-6">
+			<p>Could not edit the recipe because:</p>
+			<ul>
+				{{#each errors}}
+				<li>{{this}}</li>
+				{{/each}}
+			</ul>
+		</div>
+
+
+		<div class="column col-3"></div>
 	</div>
 
-	<div>
-		<input type="submit" value="Update">
+
+	{{else}}
+	{{#if hasDatabaseError}}
+
+	<div class="columns">
+		<div class="column col-3"></div>
+
+		<div class="column col-6">
+			<h3 style="text-align: center;">The recipe you are looking for does not exist</h3>
+		</div>
+
+		<div class="column col-3"></div>
 	</div>
 
-</form>
-{{/if}}
-{{/if}}
+
+	{{else}}
+	<div class="columns">
+		<div class="column col-3"></div>
+
+		<div class="column col-6">
+			<form action="/recipes/{{Recipe.recipeID}}/update" method="POST">
+
+				<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+				<div class="form-group">
+					<label class="form-label" for="input-example-1">Name</label>
+					<input class="form-input" id="input-example-1" placeholder="Name" type="text" name="name"
+						value="{{Recipe.name}}">
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="input-example-3">Description</label>
+					<textarea class="form-input" id="input-example-3" placeholder="Description" rows="3"
+						name="desc">{{Recipe.desc}}</textarea>
+				</div>
+
+				<button class="btn btn-primary" type="submit">Update</button>
+
+			</form>
+		</div>
+
+		<div class="column col-3"></div>
+	</div>
+	{{/if}}
+	{{/if}}
+
+</div>

@@ -2,28 +2,31 @@
 	<h1>Recipes</h1>
 </div>
 
-{{#if session.isLoggedIn}}
 
+{{#if session.isLoggedIn}}
 <div class="columns">
-	<div class="column col-12">
+	<div class="column col-1"></div>
+
+	<div class="column col-10">
 		<a href="/recipes/create">Create new recipe</a>
+
+		<div class="column col-1"></div>
 	</div>
 </div>
-
 {{/if}}
 
-<div class="columns">
-	{{#if hasDatabaseError}}
-	<p>Couldn't fetch the recipes at the moment, try again later.</p>
-	{{else}}
 
+<div class="columns">
+
+	{{#if hasDatabaseError}}
+	<p>Could not fetch the recipes at the moment, try again later.</p>
+
+	{{else}}
 	{{#if Recipe.length}}
 	{{#each Recipe}}
+	<div class="column col-1"></div>
 
-	<div class="column col-2"></div>
-
-	<div class="column col-8" style="align-tracks: center;">
-
+	<div class="column col-4">
 		<a href="/recipes/{{recipeID}}">
 			<h4 style="text-align: center;">{{name}}</h4>
 		</a>
@@ -42,16 +45,21 @@
 
 		</div>
 		{{/if}}
+	</div>
 
+	<div class="column col-1"></div>
+	{{/each}}
+
+	{{else}}
+	<div class="column col-2"></div>
+
+	<div class="column col-8">
+		<h3 style="text-align: center;">There are no recipes available.</h3>
 	</div>
 
 	<div class="column col-2"></div>
 
-	{{/each}}
-	{{else}}
-	<p>There are no recipes available!</p>
+	{{/if}}
 	{{/if}}
 
-	{{/if}}
-	<div class="column col-2"></div>
 </div>

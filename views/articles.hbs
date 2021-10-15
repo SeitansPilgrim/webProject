@@ -5,13 +5,13 @@
 {{#if session.isLoggedIn}}
 <div class="columns">
 	<div class="column col-12">
-		<a href="/articles/create">Create new Article</a>
+		<a href="/articles/create">Create new article</a>
 	</div>
 </div>
 {{/if}}
 
 {{#if hasDatabaseError}}
-<p>Couldn't fetch the articles at the moment, try again later.</p>
+<p>Could not fetch the articles at the moment, try again later.</p>
 
 {{else}}
 {{#if Article.length}}
@@ -41,7 +41,7 @@
 {{/each}}
 
 {{else}}
-<p>There are no articles available!</p>
+<p>There are no articles available.</p>
 
 {{/if}}
 {{/if}}

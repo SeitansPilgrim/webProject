@@ -1,26 +1,55 @@
-<div class="column col-12" style="text-align: center; margin-top:150px">
+<div class="container">
+    <div class="column col-12" style="text-align: center;">
+        <h1>Delete recipe</h1>
+    </div>
 
-    <h1>Delete recipe</h1>
 
     {{#if errors.length}}
-    <p>Couldn't delete the recipe because:</p>
-    <ul>
-        {{#each errors}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul>
+    <div class="columns">
+        <div class="column col-3"></div>
+
+        <div class="column col-6">
+            <p>Could not delete the recipe because:</p>
+            <ul>
+                {{#each errors}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <div class="column col-3"></div>
+    </div>
+
 
     {{else}}
     {{#if hasDatabaseError}}
-    <p>Recipe you are looking for no longer exists</p>
+
+    <div class="columns">
+        <div class="column col-3"></div>
+
+        <div class="column col-6" style="text-align: center;">
+            <h3>Faq you are looking for does not exist</h3>
+        </div>
+
+        <div class="column col-3"></div>
+    </div>
+
 
     {{else}}
-    <p>Really delete the recipe named "{{Recipe.name}}" ?</p>
+    <div class="columns" style="text-align: center;">
+        <div class="column col-4"></div>
 
-    <form action="/recipes/{{Recipe.recipeID}}/delete" method="post">
-        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <input type="submit" value="confirm delete">
-    </form>
+        <div class="column col-4">
+            <p>Really delete the recipe named "{{Recipe.name}}" ?</p>
+
+            <form action="/recipes/{{Recipe.recipeID}}/delete" method="POST">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                <button class="btn btn-primary" type="submit">Confirm delete</button>
+            </form>
+        </div>
+
+        <div class="column col-4"></div>
+    </div>
     {{/if}}
     {{/if}}
 

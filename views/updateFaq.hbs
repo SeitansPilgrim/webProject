@@ -1,33 +1,66 @@
-<h1>Update FAQ</h1>
+<div class="column col-12" style="text-align: center;">
+	<h1>Update faq</h1>
+</div>
+
 
 {{#if errors.length}}
-<p>Couldn't edit the FAQ because:</p>
-<ul>
-	{{#each errors}}
-	<li>{{this}}</li>
-	{{/each}}
-</ul>
+<div class="columns">
+	<div class="column col-3"></div>
+
+	<div class="column col-6">
+		<p>Could not edit the faq because:</p>
+		<ul>
+			{{#each errors}}
+			<li>{{this}}</li>
+			{{/each}}
+		</ul>
+	</div>
+
+	<div class="column col-3"></div>
+</div>
 
 
 {{else}}
 {{#if hasDatabaseError}}
-<p>Faq you are looking for does not exist</p>
+
+<div class="columns">
+	<div class="column col-3"></div>
+
+	<div class="column col-6">
+		<h3 style="text-align: center;">The faq you are looking for does not exist</h3>
+	</div>
+
+	<div class="column col-3"></div>
+</div>
+
 
 {{else}}
-<form action="/faq/{{FAQ.faqID}}/update" method="POST">
-	<input type="hidden" name="_csrf" value="{{csrfToken}}">
+<div class="columns">
+	<div class="column col-3"></div>
 
-	<div>
-		Question: <input type="text" name="question" value="{{FAQ.question}}">
+	<div class="column col-6">
+		<form action="/faq/{{FAQ.faqID}}/update" method="POST">
+
+			<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+			<div class="form-group">
+				<label class="form-label" for="input-example-1">Question</label>
+				<input class="form-input" id="input-example-1" placeholder="Question" type="text" name="question"
+					value="{{FAQ.question}}">
+			</div>
+
+			<div class="form-group">
+				<label class="form-label" for="input-example-3">Answer</label>
+				<textarea class="form-input" id="input-example-3" placeholder="Answer" rows="3"
+					name="answer">{{FAQ.answer}}</textarea>
+			</div>
+
+			<button class="btn btn-primary" type="submit">Update</button>
+
+		</form>
 	</div>
 
-	<div>
-		Answer: <textarea name="answer">{{FAQ.answer}}</textarea>
-	</div>
-
-	<div>
-		<input type="submit" value="Update">
-	</div>
-</form>
+	<div class="column col-3"></div>
+</div>
 {{/if}}
 {{/if}}

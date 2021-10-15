@@ -4,7 +4,7 @@ const db = new sqlite3.Database('database.sqlite3')
 //--------------------GET RECOURCES----------------------------------------------
 exports.getAllFaqs = function (callback) {
 
-    const query = "SELECT * FROM FAQ"
+    const query = "SELECT * FROM FAQ ORDER BY faqID DESC"
     db.all(query, function (error, FAQ) {
         callback(error, FAQ)
     })
@@ -12,7 +12,7 @@ exports.getAllFaqs = function (callback) {
 
 exports.getAllRecipes = function (callback) {
 
-    const query = "SELECT * FROM Recipe"
+    const query = "SELECT * FROM Recipe ORDER BY recipeID DESC"
 
     db.all(query, function (error, Recipe) {
         callback(error, Recipe)
@@ -21,7 +21,7 @@ exports.getAllRecipes = function (callback) {
 
 exports.GetAllArticles = function (callback) {
 
-    const query = "SELECT * FROM Article"
+    const query = "SELECT * FROM Article ORDER BY articleID DESC"
 
     db.all(query, function (error, Article) {
         callback(error, Article)

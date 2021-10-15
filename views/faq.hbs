@@ -2,7 +2,7 @@
   <h1>FAQ</h1>
 </div>
 
-{{#if session.isLoggedIn}} 
+{{#if session.isLoggedIn}}
 <div class="columns">
   <div class="column col-3"></div>
 
@@ -15,26 +15,32 @@
 {{/if}}
 
 
-
-
 <div class="columns">
   <div class="column col-3"></div>
   <div class="column col-6">
-
+    
     {{#if hasDatabaseError}}
-    <p>Couldn't fetch the FAQ at the moment, try again later.</p>
+    <div class="columns">
+      <div class="column col-3"></div>
+
+      <div class="column col-6">
+        <h3 style="text-align: center;">Could not fetch the FAQs at the moment, try again later.</h3>
+      </div>
+
+      <div class="column col-3"></div>
+    </div>
+
 
     {{else}}
     {{#if FAQ.length}}
     {{#each FAQ}}
 
-    <!-- Accordions are made for each question-->
     <div class="divider text-center" data-content=""></div>
 
     <details class="accordion" close>
       <summary class="accordion-header">
-
         <i class="icon icon-arrow-right mr-1" style="font-size: 20px;"></i>
+
         {{question}}
 
         {{#if ../session.isLoggedIn}}
@@ -52,7 +58,6 @@
         {{/if}}
 
       </summary>
-
       <div class="accordion-body" style="padding-left: 35px;">
         {{answer}}
       </div>
@@ -62,7 +67,7 @@
     <div class="divider text-center" data-content=""></div>
 
     {{else}}
-    <p>There are no FAQ available!</p>
+    <h3 style="text-align: center;">There are no FAQs available.</h3>
 
     {{/if}}
     {{/if}}
