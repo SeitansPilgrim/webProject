@@ -45,7 +45,7 @@ router.get('/create', csrfProtection, function (request, response) {
     response.render('createRecipe.hbs', { csrfToken: request.csrfToken() })
 })
 
-router.get('/:recipeID', csrfProtection, function (request, response) { // get recipe id 
+router.get('/:recipeID', csrfProtection, function (request, response) {
 
     const recipeID = request.params.recipeID
 
@@ -53,7 +53,8 @@ router.get('/:recipeID', csrfProtection, function (request, response) { // get r
 
         if (error) {
 
-            const model = {
+            const model =
+            {
                 hasDatabaseError: true,
                 Recipe: [],
                 csrfToken: request.csrfToken()
@@ -65,7 +66,7 @@ router.get('/:recipeID', csrfProtection, function (request, response) { // get r
 
             const model =
             {
-                hasDatabaseError:false,
+                hasDatabaseError: false,
                 Recipe,
                 csrfToken: request.csrfToken()
             }
@@ -87,7 +88,7 @@ router.post('/create', csrfProtection, function (request, response) {
 
     const errors = validators.getRecipeValidationErrors(name, desc)
 
-    
+
     uploadedImage.mv(imagePath, function (error) {
         if (error) {
             errors.push("Failed to upload file")

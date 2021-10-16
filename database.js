@@ -12,7 +12,7 @@ exports.getAllFaqs = function (callback) {
 
 exports.getAllRecipes = function (callback) {
 
-    const query = "SELECT * FROM Recipe ORDER BY recipeID DESC"
+    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID" 
 
     db.all(query, function (error, Recipe) {
         callback(error, Recipe)
@@ -80,12 +80,12 @@ exports.getRecipeById = function (recipeID, callback) {
 
     const query = "SELECT * FROM Recipe WHERE recipeID = ? LIMIT 1"
     const values = [recipeID]
-
+    console.log(recipeID) //
     db.get(query, values, function (error, Recipe) {
 
         if (Recipe == undefined) {
 
-            const model = 
+            const model =
             {
                 error,
                 Recipe
@@ -129,12 +129,14 @@ exports.createArticle = function (title, article, callback) {
 //--------------------CREATE Recipe-----------------------------------------
 exports.createRecipe = function (name, image, desc, callback) {
 
-    const query = "INSERT INTO Recipe(name, image, desc) VALUES(?,?,?) INSERT INTO Tag(name)"
+    const query = "INSERT INTO Recipe(name, image, desc) VALUES(?,?,?)"
     const values = [name, image, desc]
 
     db.run(query, values, function (error) {
         callback(error, this.lastID)
     })
+
+    
 }
 //--------------------/CREATE Recipe-----------------------------------------
 
@@ -183,8 +185,8 @@ exports.deleteFaqById = function (faqID, callback) {
     const values = [faqID]
 
     db.run(query, values, function (error) {
-            
-            callback(error)  
+
+        callback(error)
     })
 }
 //--------------------/DELETE FAQ-----------------------------------------
