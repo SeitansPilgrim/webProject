@@ -47,7 +47,6 @@ router.get('/create', csrfProtection, function (request, response) {
 
 router.get('/:recipeID', csrfProtection, function (request, response) { // get recipe id 
 
-    console.log(" get id")
     const recipeID = request.params.recipeID
 
     db.getRecipeById(recipeID, function (error, Recipe) {
@@ -66,6 +65,7 @@ router.get('/:recipeID', csrfProtection, function (request, response) { // get r
 
             const model =
             {
+                hasDatabaseError:false,
                 Recipe,
                 csrfToken: request.csrfToken()
             }
@@ -78,10 +78,25 @@ router.get('/:recipeID', csrfProtection, function (request, response) { // get r
 router.post('/create', csrfProtection, function (request, response) {
 
     const name = request.body.name
-    const image = request.body.image
+    //const image = request.body.image
     const desc = request.body.desc
+    const uploadedImage = request.files.image
+
+    const imagePath = "C:/Users/sabin/seitanProject/static/images/" + uploadedImage.name
+    const image = uploadedImage.name
 
     const errors = validators.getRecipeValidationErrors(name, desc)
+
+    
+    uploadedImage.mv(imagePath, function (error) {
+        if (error) {
+            errors.push("Failed to upload file")
+        }
+    })
+
+    if (!request.files || (request.files).length == 0) {
+        errors.push("Must upload an image")
+    }
 
     if (!request.session.isLoggedIn) {
         errors.push("Not logged in.")
@@ -108,7 +123,7 @@ router.post('/create', csrfProtection, function (request, response) {
 
             } else {
 
-                response.redirect('/recipes/'+recipeID)
+                response.redirect('/recipes')
             }
         })
 
@@ -194,7 +209,7 @@ router.post('/:recipeID/update', csrfProtection, function (request, response) {
 
             } else {
 
-                response.redirect('/recipes/'+recipeID)
+                response.redirect('/recipes/' + recipeID)
             }
         })
 

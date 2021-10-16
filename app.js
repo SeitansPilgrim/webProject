@@ -1,6 +1,7 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const expressSession = require('express-session')
+const fileUpload = require('express-fileupload')
 
 const articleRouter = require('./routers/articleRouter')
 const faqRouter = require('./routers/faqRouter')
@@ -8,7 +9,6 @@ const recipeRouter = require('./routers/recipeRouter')
 const authRouter = require('./routers/authRouter')
 
 const app = express()
-
 const { response } = require('express')
 const bodyParser = require('body-parser')
 
@@ -17,8 +17,11 @@ const SqLiteStore = connectSqlite3(expressSession)
 
 app.use(bodyParser.urlencoded({
 	extended: false
-
 }))
+
+app.use(fileUpload())
+
+app.use(express.static(__dirname +'/static/images/'))
 
 //-----------------LOGIN AND SESSION-------------
 

@@ -1,4 +1,4 @@
-<div class="column col-12" style="text-align: center;">
+<div class="column col-12 text-center">
 	<h1>Recipes</h1>
 </div>
 
@@ -27,13 +27,15 @@
 	<div class="column col-1"></div>
 
 	<div class="column col-4">
+
 		<a href="/recipes/{{recipeID}}">
-			<h4 style="text-align: center;">{{name}}</h4>
+			<h4 class="text-center">{{name}}</h4>
 		</a>
+
 		<img src={{image}} alt="bild" width="100%" height="">
 
 		{{#if ../session.isLoggedIn}}
-		<div style="text-align: center;">
+		<div class="text-center">
 
 			<a href="/recipes/{{recipeID}}/delete">
 				<i class="icon icon-delete"></i>
@@ -54,7 +56,7 @@
 	<div class="column col-2"></div>
 
 	<div class="column col-8">
-		<h3 style="text-align: center;">There are no recipes available.</h3>
+		<h3 class="text-center">There are no recipes available.</h3>
 	</div>
 
 	<div class="column col-2"></div>

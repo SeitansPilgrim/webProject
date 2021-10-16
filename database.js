@@ -129,7 +129,7 @@ exports.createArticle = function (title, article, callback) {
 //--------------------CREATE Recipe-----------------------------------------
 exports.createRecipe = function (name, image, desc, callback) {
 
-    const query = "INSERT INTO Recipe(name, image, desc) VALUES(?,?,?)"
+    const query = "INSERT INTO Recipe(name, image, desc) VALUES(?,?,?) INSERT INTO Tag(name)"
     const values = [name, image, desc]
 
     db.run(query, values, function (error) {
