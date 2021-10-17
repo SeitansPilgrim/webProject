@@ -23,8 +23,8 @@ app.use(fileUpload())
 
 app.use(express.static(__dirname +'/static/images/'))
 
-//-----------------LOGIN AND SESSION-------------
 
+//-----------------LOGIN AND SESSION-------------
 app.use(expressSession({
 	store: new SqLiteStore({ db: "session-db.db" }),
 	secret: "bahbahn",
@@ -41,7 +41,7 @@ app.get('/logout', function (request, response) {
 	request.session.isLoggedIn = false
 	response.redirect('/')
 })
-//-----------------/LOGIN----------------------------------------------------------------
+
 
 // Links----------------------------------------------------------------------------------
 

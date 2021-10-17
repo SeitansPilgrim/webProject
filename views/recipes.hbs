@@ -32,7 +32,7 @@
 			<h4 class="text-center">{{name}}</h4>
 		</a>
 
-		<img src={{image}} width="100%">
+		<img src="/{{image}}" width="100%">
 
 		<span class="label label-rounded label-secondary">{{cookingTime}}</span>
 		<span class="label label-rounded label-secondary">{{mainIngredient}}</span>
@@ -68,4 +68,30 @@
 	{{/if}}
 	{{/if}}
 
+</div>
+
+<div class="columns my-2">
+	<div class="column col-1"></div>
+	<div class="column col-10">
+		<ul class="pagination">
+
+			{{#if previousPage}}
+			<li class="page-item page-prev">
+				<a href="/recipes/?page={{previousPage}}">
+					<div class="page-item-title h5">Previous</div>
+				</a>
+			</li>
+			{{/if}}
+
+			{{#if morePages}}
+			<li class="page-item page-next">
+				<a href="/recipes/?page={{nextPage}}">
+					<div class="page-item-title h5">Next</div>
+				</a>
+			</li>
+			{{/if}}
+
+		</ul>
+	</div>
+	<div class="column col-1"></div>
 </div>

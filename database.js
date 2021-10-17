@@ -10,11 +10,12 @@ exports.getAllFaqs = function (callback) {
     })
 }
 
-exports.getAllRecipes = function (callback) {
+exports.getAllRecipes = function (start, last, callback) {
 
-    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID"
+    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID LIMIT ?,?"
+    const values = [start, last]
 
-    db.all(query, function (error, Recipe) {
+    db.all(query, values, function (error, Recipe) {
         callback(error, Recipe)
     })
 }

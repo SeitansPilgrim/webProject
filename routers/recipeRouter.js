@@ -1,19 +1,26 @@
 const express = require('express')
+const db = require('../database')
 const validators = require('../validators')
 const csurf = require('csurf')
+const paginate = require('express-paginate')
 
 const csrfProtection = csurf()
-
 const router = express.Router()
 
-const db = require('../database')
 
+router.use(paginate.middleware(4, 50));
 
 router.get('/', csrfProtection, function (request, response) {
 
-    db.getAllRecipes(function (error, Recipe) {
+    const page = request.query.page
+    const limit = request.query.limit
+    const start = (page - 1) * limit
+    const last = page * limit
+
+    db.getAllRecipes(start, last, function (error, Recipe) {
 
         if (error) {
+
             const model =
             {
                 hasDatabaseError: true,
@@ -22,21 +29,30 @@ router.get('/', csrfProtection, function (request, response) {
             }
 
             response.render('recipes.hbs', model)
-        }
 
-        else {
+        } else {
+
+            const firstPage = 0
+            const lastPage = 3
+            const morePages = lastPage < Recipe.length
+            const nextPage = page + 1
+            const previousPage = page - 1
+
+            Recipe.slice(firstPage, lastPage)
+
             const model =
             {
                 hasDatabaseError: false,
+                morePages,
+                nextPage,
+                previousPage,
                 Recipe,
                 csrfToken: request.csrfToken()
             }
 
             response.render('recipes.hbs', model)
         }
-
     })
-
 })
 
 //--------------------CREATE Recipe-----------------------------------------
@@ -152,6 +168,7 @@ router.post('/create', csrfProtection, function (request, response) {
                     })
                 }
             })
+
         } else {
 
             const model =
@@ -179,7 +196,6 @@ router.post('/create', csrfProtection, function (request, response) {
 
         response.render('createRecipe.hbs', model)
     }
-
 })
 //--------------------/CREATE Recipe-----------------------------------------
 
