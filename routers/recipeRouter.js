@@ -80,23 +80,12 @@ router.post('/create', csrfProtection, function (request, response) {
 
     const name = request.body.name
     const desc = request.body.desc
-    const uploadedImage = request.files.image
-
-    const imagePath = "C:/Users/sabin/seitanProject/static/images/" + uploadedImage.name
-    const image = uploadedImage.name
 
     const cookingTime = request.body.cookingTime
     const mainIngredient = request.body.mainIngredient
     const mealType = request.body.mealType
 
-    const errors = validators.getRecipeValidationErrors(name, desc)
-
-
-    uploadedImage.mv(imagePath, function (error) {
-        if (error) {
-            errors.push("Failed to upload the image")
-        }
-    })
+    const errors = validators.getRecipeValidationErrors(name, desc, cookingTime, mainIngredient, mealType)
 
     if (!request.files || (request.files).length == 0) {
         errors.push("Must upload an image")
@@ -108,49 +97,72 @@ router.post('/create', csrfProtection, function (request, response) {
 
     if (errors.length == 0) {
 
-        db.createRecipe(name, image, desc, function (error, recipeID) {
+        const uploadedImage = request.files.image
+        const imagePath = "C:/Users/sabin/seitanProject/static/images/" + uploadedImage.name
+        const image = uploadedImage.name
 
+        uploadedImage.mv(imagePath, function (error) {
             if (error) {
-
-                errors.push("Internal server error.")
-
-                const model =
-                {
-                    errors,
-                    name,
-                    image,
-                    desc,
-                    csrfToken: request.csrfToken()
-                }
-
-                response.render('createRecipe.hbs', model)
-
-            } else {
-
-                db.createRecipeTags(recipeID, cookingTime, mainIngredient, mealType, function (error, tagID) {
-
-                    if (error) {
-
-                        errors.push("Internal server error.")
-
-                        const model =
-                        {
-                            errors,
-                            cookingTime,
-                            mainIngredient,
-                            mealType,
-                            csrfToken: request.csrfToken()
-                        }
-
-                        response.render('createRecipe.hbs', model)
-
-                    } else {
-
-                        response.redirect('/recipes')
-                    }
-                })
+                errors.push("Failed to upload the image")
             }
         })
+
+        if (errors.length == 0) {
+
+            db.createRecipe(name, image, desc, function (error, recipeID) {
+
+                if (error) {
+
+                    errors.push("Internal server error.")
+
+                    const model =
+                    {
+                        errors,
+                        name,
+                        image,
+                        desc,
+                        csrfToken: request.csrfToken()
+                    }
+
+                    response.render('createRecipe.hbs', model)
+
+                } else {
+
+                    db.createRecipeTags(recipeID, cookingTime, mainIngredient, mealType, function (error) {
+
+                        if (error) {
+
+                            errors.push("Internal server error.")
+
+                            const model =
+                            {
+                                errors,
+                                cookingTime,
+                                mainIngredient,
+                                mealType,
+                                csrfToken: request.csrfToken()
+                            }
+
+                            response.render('createRecipe.hbs', model)
+
+                        } else {
+
+                            response.redirect('/recipes')
+                        }
+                    })
+                }
+            })
+        } else {
+
+            const model =
+            {
+                errors,
+                image,
+                csrfToken: request.csrfToken()
+            }
+
+            response.render('createRecipe.hbs', model)
+        }
 
     } else {
 
@@ -158,8 +170,10 @@ router.post('/create', csrfProtection, function (request, response) {
         {
             errors,
             name,
-            image,
             desc,
+            cookingTime,
+            mainIngredient,
+            mealType,
             csrfToken: request.csrfToken()
         }
 

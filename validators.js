@@ -4,10 +4,10 @@ const MIN_TITLE_LENGTH = 1;
 const MIN_ARTICLE_LENGTH = 1;
 const MIN_NAME_LENGTH = 1;
 const MIN_DESC_LENGTH = 1;
+const MIN_TAG_LENGTH = 1;
+const MIN_ID_LENGTH = 1;
 
-const MIN_ID_LENGTH = 1; 
-
-exports.getFaqValidationErrors = function(question, answer) {
+exports.getFaqValidationErrors = function (question, answer) {
 	const validationErrors = []
 
 	if (question.length < MIN_QUESTION_LENGTH) {
@@ -20,7 +20,7 @@ exports.getFaqValidationErrors = function(question, answer) {
 	return validationErrors
 }
 
-exports.getArticleValidationErrors = function(title, article) {
+exports.getArticleValidationErrors = function (title, article) {
 	const validationErrors = []
 
 	if (title.length < MIN_TITLE_LENGTH) {
@@ -33,7 +33,7 @@ exports.getArticleValidationErrors = function(title, article) {
 	return validationErrors
 }
 
-exports.getRecipeValidationErrors = function(name, desc) {
+exports.getRecipeValidationErrors = function (name, desc, cookingTime, mainIngredient, mealType) {
 	const validationErrors = []
 
 	if (name.length < MIN_NAME_LENGTH) {
@@ -43,34 +43,39 @@ exports.getRecipeValidationErrors = function(name, desc) {
 	if (desc.length < MIN_DESC_LENGTH) {
 		validationErrors.push("Description must be at least " + MIN_DESC_LENGTH + " characters")
 	}
+
+	if (cookingTime.length < MIN_TAG_LENGTH || mainIngredient.length < MIN_TAG_LENGTH || mealType.length < MIN_TAG_LENGTH) {
+		validationErrors.push("Tags must be at least " + MIN_DESC_LENGTH + " characters")
+	}
+
 	return validationErrors
 }
 
-exports.getFaqIdValidationErrors = function(faqID){
-	
+exports.getFaqIdValidationErrors = function (faqID) {
+
 	const validationErrors = []
 
-	if(faqID.length < MIN_ID_LENGTH){
+	if (faqID.length < MIN_ID_LENGTH) {
 		validationErrors.push("Id must be at least " + MIN_ID_LENGTH + "characters")
 	}
 	return validationErrors
 }
 
-exports.getRecipeIdValidationErrors = function(recipeID){
-	
+exports.getRecipeIdValidationErrors = function (recipeID) {
+
 	const validationErrors = []
 
-	if(recipeID.length < MIN_ID_LENGTH){
+	if (recipeID.length < MIN_ID_LENGTH) {
 		validationErrors.push("Id must be at least " + MIN_ID_LENGTH + "characters")
 	}
 	return validationErrors
 }
 
-exports.getArticleIdValidationErrors = function(articleID){
-	
+exports.getArticleIdValidationErrors = function (articleID) {
+
 	const validationErrors = []
 
-	if(articleID.length < MIN_ID_LENGTH){
+	if (articleID.length < MIN_ID_LENGTH) {
 		validationErrors.push("Id must be at least " + MIN_ID_LENGTH + "characters")
 	}
 	return validationErrors
