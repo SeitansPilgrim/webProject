@@ -27,7 +27,7 @@ exports.GetAllArticles = function (callback) {
         callback(error, Article)
     })
 }
-//--------------------/GET RECOURCES----------------------------------------------
+
 
 //-------------------GET RECOURCES BY ID-------------------------------------------
 
@@ -80,7 +80,7 @@ exports.getRecipeById = function (recipeID, callback) {
 
     const query = "SELECT * FROM Recipe WHERE recipeID = ? LIMIT 1"
     const values = [recipeID]
-    console.log(recipeID) //
+
     db.get(query, values, function (error, Recipe) {
 
         if (Recipe == undefined) {
@@ -99,7 +99,7 @@ exports.getRecipeById = function (recipeID, callback) {
         }
     })
 }
-//-------------------/GET RECOURCES BY ID-------------------------------------------
+
 
 //--------------------CREATE FAQ----------------------------------------------
 exports.createFaq = function (question, answer, callback) {
@@ -112,7 +112,6 @@ exports.createFaq = function (question, answer, callback) {
     })
 }
 
-//--------------------/CREATE FAQ----------------------------------------------
 
 //--------------------CREATE Article-----------------------------------------
 exports.createArticle = function (title, article, callback) {
@@ -124,7 +123,7 @@ exports.createArticle = function (title, article, callback) {
         callback(error, this.lastID)
     })
 }
-//--------------------/CREATE Article-----------------------------------------
+
 
 //--------------------CREATE Recipe-----------------------------------------
 exports.createRecipe = function (name, image, desc, callback) {
@@ -148,9 +147,6 @@ exports.createRecipeTags = function (recipeID, cookingTime, mainIngredient, meal
 }
 
 
-
-//--------------------/CREATE Recipe-----------------------------------------
-
 //---------------------UPDATE  FAQ-----------------------------------------
 exports.updateFaqbyId = function (faqID, question, answer, callback) {
 
@@ -161,7 +157,6 @@ exports.updateFaqbyId = function (faqID, question, answer, callback) {
         callback(error)
     })
 }
-//--------------------/UPDATE  FAQ-----------------------------------------
 
 
 //--------------------UPDATE  ARTICLE-----------------------------------------
@@ -174,7 +169,6 @@ exports.updateArticleById = function (articleID, title, article, callback) {
         callback(error)
     })
 }
-//--------------------/UPDATE  ARTICLE-----------------------------------------
 
 
 //--------------------UPDATE RECIPE-----------------------------------------
@@ -187,7 +181,17 @@ exports.updateRecipeById = function (recipeID, name, desc, callback) {
         callback(error)
     })
 }
-//--------------------/UPDATE RECIPE-----------------------------------------
+
+exports.updateRecipeTagsById = function (recipeID, cookingTime, mainIngredient, mealType, callback) {
+
+    const query = "UPDATE RecipeTags SET cookingTime = ?, mainIngredient = ?, mealType = ? WHERE recipeID = ?"
+    const values = [cookingTime, mainIngredient, mealType, recipeID]
+
+    db.run(query, values, function (error) {
+        callback(error)
+    })
+}
+
 
 //--------------------DELETE FAQ-----------------------------------------
 exports.deleteFaqById = function (faqID, callback) {
@@ -200,7 +204,6 @@ exports.deleteFaqById = function (faqID, callback) {
         callback(error)
     })
 }
-//--------------------/DELETE FAQ-----------------------------------------
 
 
 //--------------------DELETE ARTICLE-----------------------------------------
@@ -213,7 +216,6 @@ exports.deleteArticleById = function (articleID, callback) {
         callback(error)
     })
 }
-//--------------------/DELETE ARTICLE-----------------------------------------
 
 
 //--------------------DELETE RECIPE-----------------------------------------
@@ -226,4 +228,13 @@ exports.deleteRecipeById = function (recipeID, callback) {
         callback(error)
     })
 }
-//--------------------/DELETE RECIPE-----------------------------------------
+
+exports.deleteRecipeTagsById = function (recipeID, callback) {
+
+    const query = "DELETE FROM RecipeTags WHERE recipeID = ?"
+    const values = [recipeID]
+
+    db.run(query, values, function (error) {
+        callback(error)
+    })
+}

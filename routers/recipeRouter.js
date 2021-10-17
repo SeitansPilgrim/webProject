@@ -127,7 +127,7 @@ router.post('/create', csrfProtection, function (request, response) {
 
             } else {
 
-                db.createRecipeTags(recipeID,cookingTime, mainIngredient, mealType, function (error, tagID) {
+                db.createRecipeTags(recipeID, cookingTime, mainIngredient, mealType, function (error, tagID) {
 
                     if (error) {
 
@@ -207,6 +207,10 @@ router.post('/:recipeID/update', csrfProtection, function (request, response) {
     const name = request.body.name
     const desc = request.body.desc
 
+    const cookingTime = request.body.cookingTime
+    const mainIngredient = request.body.mainIngredient
+    const mealType = request.body.mealType
+
     const errors = validators.getRecipeValidationErrors(name, desc)
 
 
@@ -234,7 +238,29 @@ router.post('/:recipeID/update', csrfProtection, function (request, response) {
 
             } else {
 
-                response.redirect('/recipes/' + recipeID)
+
+
+                db.updateRecipeTagsById(recipeID, cookingTime, mainIngredient, mealType, function (error) {
+
+                    if (error) {
+
+                        errors.push("Internal server error")
+
+                        const model = {
+                            errors,
+                            recipeID,
+                            name,
+                            desc,
+                            csrfToken: request.csrfToken()
+                        }
+
+                        response.render('updateRecipe.hbs', model)
+
+                    } else {
+
+                        response.redirect('/recipes/' + recipeID)
+                    }
+                })
             }
         })
 
@@ -315,7 +341,27 @@ router.post('/:recipeID/delete', csrfProtection, function (request, response) {
 
             } else {
 
-                response.redirect('/recipes')
+
+                db.deleteRecipeTagsById(recipeID, function (error) {
+
+                    if (error) {
+
+                        errors.push("Internal server error.")
+
+                        const model =
+                        {
+                            errors,
+                            recipeID,
+                            csrfToken: request.csrfToken()
+                        }
+
+                        response.render('deleteRecipe.hbs', model)
+
+                    } else {
+
+                        response.redirect('/recipes')
+                    }
+                })
             }
         })
 
