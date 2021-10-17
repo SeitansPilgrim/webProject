@@ -79,19 +79,22 @@ router.get('/:recipeID', csrfProtection, function (request, response) {
 router.post('/create', csrfProtection, function (request, response) {
 
     const name = request.body.name
-    //const image = request.body.image
     const desc = request.body.desc
     const uploadedImage = request.files.image
 
     const imagePath = "C:/Users/sabin/seitanProject/static/images/" + uploadedImage.name
     const image = uploadedImage.name
 
+    const cookingTime = request.body.cookingTime
+    const mainIngredient = request.body.mainIngredient
+    const mealType = request.body.mealType
+
     const errors = validators.getRecipeValidationErrors(name, desc)
 
 
     uploadedImage.mv(imagePath, function (error) {
         if (error) {
-            errors.push("Failed to upload file")
+            errors.push("Failed to upload the image")
         }
     })
 
@@ -124,7 +127,28 @@ router.post('/create', csrfProtection, function (request, response) {
 
             } else {
 
-                response.redirect('/recipes')
+                db.createRecipeTags(recipeID,cookingTime, mainIngredient, mealType, function (error, tagID) {
+
+                    if (error) {
+
+                        errors.push("Internal server error.")
+
+                        const model =
+                        {
+                            errors,
+                            cookingTime,
+                            mainIngredient,
+                            mealType,
+                            csrfToken: request.csrfToken()
+                        }
+
+                        response.render('createRecipe.hbs', model)
+
+                    } else {
+
+                        response.redirect('/recipes')
+                    }
+                })
             }
         })
 

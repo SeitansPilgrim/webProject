@@ -12,7 +12,7 @@ exports.getAllFaqs = function (callback) {
 
 exports.getAllRecipes = function (callback) {
 
-    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID" 
+    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID"
 
     db.all(query, function (error, Recipe) {
         callback(error, Recipe)
@@ -135,9 +135,20 @@ exports.createRecipe = function (name, image, desc, callback) {
     db.run(query, values, function (error) {
         callback(error, this.lastID)
     })
-
-    
 }
+
+exports.createRecipeTags = function (recipeID, cookingTime, mainIngredient, mealType, callback) {
+
+    const query = "INSERT INTO RecipeTags(recipeID, cookingTime, mainIngredient, mealType) VALUES(?,?,?,?)"
+    const values = [recipeID, cookingTime, mainIngredient, mealType]
+
+    db.run(query, values, function (error) {
+        callback(error, this.lastID)
+    })
+}
+
+
+
 //--------------------/CREATE Recipe-----------------------------------------
 
 //---------------------UPDATE  FAQ-----------------------------------------
