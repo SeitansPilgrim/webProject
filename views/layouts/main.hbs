@@ -13,13 +13,16 @@
 
 </head>
 
-<header class="mx-2 my-2 px-2 py-2">
+<header class="m-2 p-2">
 
   <!-- Nav for screen => 840px-->
   <div class="container hide-md m-2">
     <div class="columns text-dark">
 
-      <div class="column col-4 text-left"><h2>Free Range Tomato</h2></div>
+      <div class="column col-4 text-left">
+        <h2>Free Range Tomato</h2>
+      </div>
+
       <div class="column col-lg-auto"></div>
       <div class="column col-1 text-right text-small my-2"><a href='/'>Home</a></div>
       <div class="column col-1 text-right text-small my-2"><a href='/recipes'>Recipes</a></div>
@@ -27,28 +30,28 @@
       <div class="column col-1 text-right text-small my-2"><a href='/faq'>FAQ</a></div>
       <div class="column col-1 text-right text-small my-2"><a href='/about'>About</a></div>
       <div class="column col-1 text-right text-small my-2"><a href='/contact'>Contact</a></div>
-      
+
       <div class="column col-1 text-right text-small my-1">
-        
         {{#if session.isLoggedIn}}
         <div class="dropdown dropdown-right">
-          
+
           <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
             <p class="icon icon-people" style="font-size: 20px;"></p>
           </a>
 
-          <ul class="menu">
-            <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
-                href='/logout'>Log out</a></div>
+          <ul class="menu text-left">
+            <a href='/logout'>Log out</a>
           </ul>
-          
+
         </div>
 
         {{else}}
         <div class="dropdown dropdown-right">
+
           <a href="/auth/login" class="btn btn-link dropdown-toggle" tabindex="0">
             <p class="icon icon-people" style="font-size: 20px;"></p>
           </a>
+
         </div>
 
         {{/if}}
@@ -59,149 +62,122 @@
 
 
   <!-- Nav for screen <= 840px-->
-  <div class="container show-md hide-xs"
-    style="margin-top: 60px; margin-bottom:60px; margin-left: 60px; margin-right: 60px">
+  <div class="container show-md hide-xs m-2">
     <div class="columns">
-      <div class="column col-9" style="font-family:Lucida Concole; text-align:left">
+
+      <div class="column col-9 text-left">
         <h2>Free Range Tomato</h2>
       </div>
 
       <div class="column col-auto"></div>
 
-      <!-- dropdown menu -->
       <div class="dropdown dropdown-right">
-        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu"
-            style="font-size: 30px;"></i></a>
 
-        <!-- menu component -->
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <i class="icon icon-menu" style="font-size: 30px;"></i>
+        </a>
+
         <ul class="menu">
-          <div class="column col-1" style="font-family:Lucida Concole;padding-top:15px"> <a href='/'>Home</a> </div>
-
-          <div class="column col-1" style="font-family:Lucida Concole;padding-top:15px"><a href='/recipes'>Recipes</a>
-          </div>
-
-          <div class="column col-1" style="font-family:Lucida Concole;padding-top:15px"><a href='/articles'>Articles</a>
-          </div>
-
-          <div class="column col-1" style="font-family:Lucida Concole;padding-top:15px"><a href='/faq'>FAQ</a></div>
-
-          <div class="column col-1" style="font-family:Lucida Concole;padding-top:15px"><a href='/about'>About</a></div>
-
-          <div class="column col-1" style="font-family:Lucida Concole;padding-top:15px"><a href='/contact'>Contact</a>
-          </div>
+          <div class="column col-1 my-2"><a href='/'>Home</a> </div>
+          <div class="column col-1 my-2"><a href='/recipes'>Recipes</a></div>
+          <div class="column col-1 my-2"><a href='/articles'>Articles</a></div>
+          <div class="column col-1 my-2"><a href='/faq'>FAQ</a></div>
+          <div class="column col-1 my-2"><a href='/about'>About</a></div>
+          <div class="column col-1 my-2"><a href='/contact'>Contact</a></div>
         </ul>
+
       </div>
 
-      <div class="column col-1" style="text-align:right;">
+      <div class="column col-1 text-right">
         {{#if session.isLoggedIn}}
-
         <div class="dropdown dropdown-right">
+
           <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
             <p class="icon icon-people" style="font-size: 30px;"></p>
           </a>
 
-          <ul class="menu">
-            <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
-                href='/logout'>Log out</a></div>
+          <ul class="menu text-left">
+            <a href='/logout'>Log out</a>
           </ul>
+
         </div>
 
         {{else}}
         <div class="dropdown dropdown-right">
-          <a href="/login" class="btn btn-link dropdown-toggle" tabindex="0">
+
+          <a href="/auth/login" class="btn btn-link dropdown-toggle" tabindex="0">
             <p class="icon icon-people" style="font-size: 30px;"></p>
           </a>
+
         </div>
 
         {{/if}}
       </div>
 
     </div>
-    <!-- /Columns -->
   </div>
-  <!-- /Nav for screen <= 840px-->
 
 
   <!-- Nav for screen <= 480px-->
-  <div class="container show-xs" style="margin-top: 60px; margin-bottom:20px; margin-left: 60px; margin-right: 60px">
-
-    <!-- Title column -->
+  <div class="container show-xs m-2">
     <div class="columns">
-      <div class="column col-12" style="font-family:Lucida Concole; text-align:left">
+
+      <div class="column col-12 text-center">
         <h2>Free Range Tomato</h2>
       </div>
-    </div>
-    <!-- /Title column -->
 
-    <!-- Menu column -->
-    <div class="columns" style="text-align:center">
-      <!-- dropdown menu -->
-      <div class="column col-1"></div>
+      <div class="dropdown col-12 text-center my-2">
 
-      <div class="dropdown col-3">
-        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0"><i class="icon icon-menu icon-2x"></i></a>
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <i class="icon icon-menu icon-2x"></i>
+        </a>
 
-        <!-- menu component -->
         <ul class="menu">
-          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"> <a
-              href='/'>Home</a> </div>
-          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
-              href='/recipes'>Recipes</a></div>
-          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
-              href='/articles'>Articles</a></div>
-          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
-              href='/faq'>FAQ</a></div>
-          <div class="column" style="font-family:Lucida Concole; text-align:center; padding-top:15px"><a
-              href='/about'>About</a></div>
-          <div class="column"
-            style="font-family:Lucida Concole; text-align:center; padding-top:15px; padding: bottom 15px;"><a
-              href='/contact'>Contact</a></div>
+          <div class="column my-1"><a href='/'>Home</a></div>
+          <div class="column"><a href='/recipes'>Recipes</a></div>
+          <div class="column"><a href='/articles'>Articles</a></div>
+          <div class="column"><a href='/faq'>FAQ</a></div>
+          <div class="column"><a href='/about'>About</a></div>
+          <div class="column"><a href='/contact'>Contact</a></div>
         </ul>
+
       </div>
-      <!-- /Menu column -->
-      <div class="column col-2"></div>
 
-      <!-- Admin column -->
-      <div class="column col-3">
-        {{#if session.isLoggedIn}}
+      {{#if session.isLoggedIn}}
+      <div class="dropdown col-12 dropdown-right text-center my-2">
 
-        <div class="dropdown dropdown-right">
-          <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
-            <p class="icon icon-people" style="font-size: 30px;"></p>
-          </a>
+        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <p class="icon icon-people" style="font-size: 30px;"></p>
+        </a>
 
-          <ul class="menu">
-            <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
-                href='/logout'>Log out</a></div>
-          </ul>
-        </div>
+        <ul class="menu">
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
+              href='/logout'>Log out</a></div>
+        </ul>
 
-        {{else}}
-        <div class="dropdown dropdown-right">
-          <a href="/login" class="btn btn-link dropdown-toggle" tabindex="0">
-            <p class="icon icon-people" style="font-size: 30px;"></p>
-          </a>
-        </div>
-
-        {{/if}}
       </div>
-      <div class="column col-2"></div>
+
+      {{else}}
+      <div class="dropdown col-12 dropdown-right text-center">
+
+        <a href="/auth/login" class="btn btn-link dropdown-toggle" tabindex="0">
+          <p class="icon icon-people" style="font-size: 30px;"></p>
+        </a>
+
+      </div>
+
+      {{/if}}
+
     </div>
-    <!-- /Admin column -->
   </div>
-  <!-- /Nav for screen <= 480px-->
+
 
 </header>
 
-<body class="mx-2 my-2 px-2 py-2">
-
-  <main class="mx-2 my-2 px-2 py-2">
+<body class="m-2 p-2">
+  <main class="m-2 p-2">
     {{{body}}}
   </main>
-
 </body>
-
-<footer>
-</footer>
 
 </html>
