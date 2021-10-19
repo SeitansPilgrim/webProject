@@ -101,7 +101,7 @@ router.post('/create', csrfProtection, function (request, response) {
     const mainIngredient = request.body.mainIngredient
     const mealType = request.body.mealType
 
-    const errors = validators.getRecipeValidationErrors(name, desc, cookingTime, mainIngredient, mealType)
+    const errors = validators.getRecipeValidationErrors(name, desc)
 
     if (!request.files || (request.files).length == 0) {
         errors.push("Must upload an image")
@@ -237,10 +237,6 @@ router.post('/:recipeID/update', csrfProtection, function (request, response) {
     const name = request.body.name
     const desc = request.body.desc
 
-    const cookingTime = request.body.cookingTime
-    const mainIngredient = request.body.mainIngredient
-    const mealType = request.body.mealType
-
     const errors = validators.getRecipeValidationErrors(name, desc)
 
 
@@ -268,29 +264,7 @@ router.post('/:recipeID/update', csrfProtection, function (request, response) {
 
             } else {
 
-
-
-                db.updateRecipeTagsById(recipeID, cookingTime, mainIngredient, mealType, function (error) {
-
-                    if (error) {
-
-                        errors.push("Internal server error")
-
-                        const model = {
-                            errors,
-                            recipeID,
-                            name,
-                            desc,
-                            csrfToken: request.csrfToken()
-                        }
-
-                        response.render('updateRecipe.hbs', model)
-
-                    } else {
-
-                        response.redirect('/recipes/' + recipeID)
-                    }
-                })
+                response.redirect('/recipes/' + recipeID)
             }
         })
 

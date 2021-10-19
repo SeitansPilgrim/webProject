@@ -28,20 +28,21 @@
 	<div class="column col-6">
 		<h4>{{title}}</h4>
 		<p>{{article}}</p>
+
+		{{#if ../session.isLoggedIn}}
+		<div style="text-align: right;">
+
+			<a class="text-error" href="/articles/{{articleID}}/delete">
+				<i class="icon icon-delete"></i>
+			</a>
+
+			<a class="text-success" href="/articles/{{articleID}}/update">
+				<i class="icon icon-edit"></i>
+			</a>
+
+		</div>
 	</div>
 
-	{{#if ../session.isLoggedIn}}
-	<div style="text-align: right;">
-
-		<a class="text-error" href="/articles/{{articleID}}/delete">
-			<i class="icon icon-delete"></i>
-		</a>
-
-		<a class="text-success" href="/articles/{{articleID}}/update">
-			<i class="icon icon-edit"></i>
-		</a>
-
-	</div>
 	{{/if}}
 
 	<div class="column col-3"></div>

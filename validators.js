@@ -33,7 +33,7 @@ exports.getArticleValidationErrors = function (title, article) {
 	return validationErrors
 }
 
-exports.getRecipeValidationErrors = function (name, desc, cookingTime, mainIngredient, mealType) {
+exports.getRecipeValidationErrors = function (name, desc) {
 	const validationErrors = []
 
 	if (name.length < MIN_NAME_LENGTH) {
@@ -42,10 +42,6 @@ exports.getRecipeValidationErrors = function (name, desc, cookingTime, mainIngre
 
 	if (desc.length < MIN_DESC_LENGTH) {
 		validationErrors.push("Description must be at least " + MIN_DESC_LENGTH + " characters")
-	}
-
-	if (cookingTime.length < MIN_TAG_LENGTH || mainIngredient.length < MIN_TAG_LENGTH || mealType.length < MIN_TAG_LENGTH) {
-		validationErrors.push("Tags must be at least " + MIN_DESC_LENGTH + " characters")
 	}
 
 	return validationErrors
