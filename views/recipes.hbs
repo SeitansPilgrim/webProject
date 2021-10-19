@@ -1,18 +1,16 @@
-<div class="column col-12 text-center">
+<div class="col-12 text-center">
 	<h1>Recipes</h1>
 </div>
 
 
 {{#if session.isLoggedIn}}
-<div class="columns">
-	<div class="column col-1"></div>
 
-	<div class="column col-10">
-		<a href="/recipes/create">Create new recipe</a>
-
-		<div class="column col-1"></div>
-	</div>
+<div class="col-12 text-center my-2">
+	<button class="btn btn-primary">
+		<a class="text-secondary" href="/recipes/create">Create new recipe</a>
+	</button>
 </div>
+
 {{/if}}
 
 
@@ -26,26 +24,26 @@
 	{{#each Recipe}}
 	<div class="column col-1"></div>
 
-	<div class="column col-4">
+	<div class="column col-4 my-2 py-2">
 
-		<a href="/recipes/{{recipeID}}">
+		<a class="text-dark" href="/recipes/{{recipeID}}">
 			<h4 class="text-center">{{name}}</h4>
 		</a>
 
 		<img src="/{{image}}" width="100%">
 
-		<span class="label label-rounded label-secondary">{{cookingTime}}</span>
-		<span class="label label-rounded label-secondary">{{mainIngredient}}</span>
-		<span class="label label-rounded label-secondary">{{mealType}}</span>
+		<span class="label label-rounded label-secondary text-dark">{{cookingTime}}</span>
+		<span class="label label-rounded label-secondary text-dark">{{mainIngredient}}</span>
+		<span class="label label-rounded label-secondary text-dark">{{mealType}}</span>
 
 		{{#if ../session.isLoggedIn}}
-		<div class="text-center">
+		<div class="text-center py-1">
 
-			<a href="/recipes/{{recipeID}}/delete">
+			<a class="text-error" class="text-dark" href="/recipes/{{recipeID}}/delete">
 				<i class="icon icon-delete"></i>
 			</a>
 
-			<a href="/recipes/{{recipeID}}/update">
+			<a class="text-success" href="/recipes/{{recipeID}}/update">
 				<i class="icon icon-edit"></i>
 			</a>
 
@@ -57,13 +55,10 @@
 	{{/each}}
 
 	{{else}}
-	<div class="column col-2"></div>
 
-	<div class="column col-8">
+	<div class="column col-12 text-center">
 		<h3 class="text-center">There are no recipes available.</h3>
 	</div>
-
-	<div class="column col-2"></div>
 
 	{{/if}}
 	{{/if}}
@@ -72,12 +67,13 @@
 
 <div class="columns my-2">
 	<div class="column col-1"></div>
+	
 	<div class="column col-10">
 		<ul class="pagination">
 
 			{{#if previousPage}}
 			<li class="page-item page-prev">
-				<a href="/recipes/?page={{previousPage}}">
+				<a class="text-dark" href="/recipes/?page={{previousPage}}">
 					<div class="page-item-title h5">Previous</div>
 				</a>
 			</li>
@@ -85,7 +81,7 @@
 
 			{{#if morePages}}
 			<li class="page-item page-next">
-				<a href="/recipes/?page={{nextPage}}">
+				<a class="text-dark" href="/recipes/?page={{nextPage}}">
 					<div class="page-item-title h5">Next</div>
 				</a>
 			</li>
@@ -93,5 +89,6 @@
 
 		</ul>
 	</div>
+
 	<div class="column col-1"></div>
 </div>

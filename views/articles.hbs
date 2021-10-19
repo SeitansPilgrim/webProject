@@ -1,35 +1,28 @@
-<div class="column col-12" style="text-align: center;">
+<div class="col-12" style="text-align: center;">
 	<h1>Articles</h1>
-</div>
-
-<div class="columns">
-
-	<div class="column col-3">
-		<img src="dogpig.jpg" class="img-responsive">
-	</div>
-
 </div>
 
 
 {{#if session.isLoggedIn}}
-<div class="columns">
-	<div class="column col-3"></div>
-	<div class="column col-6">
-		<a href="/articles/create">Create new article</a>
-	</div>
-	<div class="column col-3"></div>
+
+<div class="col-12 my-2 text-center">
+	<button class="btn btn-primary">
+		<a class="text-secondary" href="/articles/create">Create new article</a>
+	</button>
 </div>
+
 {{/if}}
 
-{{#if hasDatabaseError}}
-<div class="column col-12">
-	<h3 style="text-align: center;">Could not fetch the articles at the moment, try again later.</h3>
-</div>
 
-{{else}}
-{{#if Article.length}}
-{{#each Article}}
 <div class="columns">
+	{{#if hasDatabaseError}}
+	<div class="column col-12">
+		<h3 style="text-align: center;">Could not fetch the articles at the moment, try again later.</h3>
+	</div>
+
+	{{else}}
+	{{#if Article.length}}
+	{{#each Article}}
 	<div class="column col-3"></div>
 
 	<div class="column col-6">
@@ -40,23 +33,24 @@
 	{{#if ../session.isLoggedIn}}
 	<div style="text-align: right;">
 
-		<a href="/articles/{{articleID}}/delete">
+		<a class="text-error" href="/articles/{{articleID}}/delete">
 			<i class="icon icon-delete"></i>
 		</a>
 
-		<a href="/articles/{{articleID}}/update">
+		<a class="text-success" href="/articles/{{articleID}}/update">
 			<i class="icon icon-edit"></i>
 		</a>
 
 	</div>
 	{{/if}}
 
+	<div class="column col-3"></div>
+	{{/each}}
+
+	{{else}}
+	<p>There are no articles available.</p>
+
+	{{/if}}
+	{{/if}}
+
 </div>
-<div class="column col-3"></div>
-{{/each}}
-
-{{else}}
-<p>There are no articles available.</p>
-
-{{/if}}
-{{/if}}

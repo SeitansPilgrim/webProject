@@ -1,17 +1,16 @@
-<div class="column col-12" style="text-align: center;">
+<div class="col-12" style="text-align: center;">
   <h1>FAQ</h1>
 </div>
 
+
 {{#if session.isLoggedIn}}
-<div class="columns">
-  <div class="column col-3"></div>
 
-  <div class="column col-6">
-    <a href="/faq/create" style="">Create new FAQ</a>
-  </div>
+	<div class="col-12 my-2 text-center">
+		<button class="btn btn-primary">
+			<a class="text-secondary" href="/faq/create" style="">Create new FAQ</a>
+		</button>
+	</div>
 
-  <div class="column col-3"></div>
-</div>
 {{/if}}
 
 
@@ -46,11 +45,11 @@
         {{#if ../session.isLoggedIn}}
         <div style="text-align: right;">
 
-          <a href="/faq/{{faqID}}/delete">
+          <a class="text-error" href="/faq/{{faqID}}/delete">
             <i class="icon icon-delete"></i>
           </a>
 
-          <a href="/faq/{{faqID}}/update">
+          <a class="text-success" href="/faq/{{faqID}}/update">
             <i class="icon icon-edit"></i>
           </a>
 
