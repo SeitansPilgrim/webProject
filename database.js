@@ -1,6 +1,42 @@
 const sqlite3 = require('sqlite3')
 const db = new sqlite3.Database('database.sqlite3')
 
+db.run(
+    `
+    CREATE TABLE IF NOT EXISTS "Article" (
+        "articleID"	INTEGER,
+        "title"	TEXT,
+        "article"	TEXT,
+        PRIMARY KEY("articleID" AUTOINCREMENT)
+    );
+
+    CREATE TABLE IF NOT EXISTS "FAQ" (
+        "faqID"	INTEGER,
+        "question"	TEXT,
+        "answer"	TEXT,
+        PRIMARY KEY("faqID" AUTOINCREMENT)
+    );
+
+    CREATE TABLE IF NOT EXISTS "Recipe" (
+        "recipeID"	INTEGER,
+        "name"	TEXT,
+        "desc"	TEXT,
+        "image"	TEXT,
+        PRIMARY KEY("recipeID" AUTOINCREMENT)
+    );
+
+    CREATE TABLE IF NOT EXISTS "RecipeTags" (
+        "tagID"	INTEGER,
+        "recipeID"	INTEGER,
+        "cookingTime"	TEXT,
+        "mainIngredient"	TEXT,
+        "mealType"	TEXT,
+        PRIMARY KEY("tagID" AUTOINCREMENT),
+        FOREIGN KEY("recipeID") REFERENCES "Recipe"("recipeID") ON DELETE CASCADE
+    );
+`
+)
+
 //--------------------GET RECOURCES----------------------------------------------
 exports.getAllFaqs = function (callback) {
 
