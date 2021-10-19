@@ -3,6 +3,18 @@
 		<h1>Update recipe</h1>
 	</div>
 
+	{{#if hasDatabaseError}}
+	<div class="columns">
+		<div class="column col-3"></div>
+
+		<div class="column col-6">
+			<h3 style="text-align: center;">The recipe you are looking for does not exist</h3>
+		</div>
+
+		<div class="column col-3"></div>
+	</div>
+
+	{{else}}
 	{{#if errors.length}}
 	<div class="columns">
 		<div class="column col-3"></div>
@@ -18,21 +30,6 @@
 
 		<div class="column col-3"></div>
 	</div>
-
-
-	{{else}}
-	{{#if hasDatabaseError}}
-
-	<div class="columns">
-		<div class="column col-3"></div>
-
-		<div class="column col-6">
-			<h3 style="text-align: center;">The recipe you are looking for does not exist</h3>
-		</div>
-
-		<div class="column col-3"></div>
-	</div>
-
 
 	{{else}}
 	<div class="columns">

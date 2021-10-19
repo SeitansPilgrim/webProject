@@ -26,7 +26,6 @@ router.post('/login', csrfProtection, function (request, response) {
 
         request.session.isLoggedIn = true
 
-        // TODO: Do something better than redirecting to start page.
         response.redirect('/')
 
     } else {

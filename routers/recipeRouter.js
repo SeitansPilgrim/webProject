@@ -25,7 +25,6 @@ router.get('/', csrfProtection, function (request, response) {
             {
                 hasDatabaseError: true,
                 Recipe: [],
-                csrfToken: request.csrfToken()
             }
 
             response.render('recipes.hbs', model)
@@ -73,7 +72,6 @@ router.get('/:recipeID', csrfProtection, function (request, response) {
             {
                 hasDatabaseError: true,
                 Recipe: [],
-                csrfToken: request.csrfToken()
             }
 
             response.render('recipe.hbs', model)
@@ -211,7 +209,6 @@ router.get('/:recipeID/update', csrfProtection, function (request, response) {
             {
                 hasDatabaseError: true,
                 Recipe: [],
-                csrfToken: request.csrfToken()
             }
 
             response.render('updateRecipe.hbs', model)
@@ -298,7 +295,6 @@ router.get('/:recipeID/delete', csrfProtection, function (request, response) {
             {
                 hasDatabaseError: true,
                 Recipe: [],
-                csrfToken: request.csrfToken()
             }
 
             response.render('deleteRecipe.hbs', model)
