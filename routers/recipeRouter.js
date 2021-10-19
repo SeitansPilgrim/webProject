@@ -114,7 +114,7 @@ router.post('/create', csrfProtection, function (request, response) {
     if (errors.length == 0) {
 
         const uploadedImage = request.files.image
-        const imagePath = "C:/Users/sabin/seitanProject/static/images/" + uploadedImage.name
+        const imagePath = "static/images/" + uploadedImage.name
         const image = uploadedImage.name
 
         uploadedImage.mv(imagePath, function (error) {

@@ -9,14 +9,22 @@ db.run(
         "article"	TEXT,
         PRIMARY KEY("articleID" AUTOINCREMENT)
     );
+`
+)
 
+db.run(
+    `
     CREATE TABLE IF NOT EXISTS "FAQ" (
         "faqID"	INTEGER,
         "question"	TEXT,
         "answer"	TEXT,
         PRIMARY KEY("faqID" AUTOINCREMENT)
     );
+`
+)
 
+db.run(
+    `
     CREATE TABLE IF NOT EXISTS "Recipe" (
         "recipeID"	INTEGER,
         "name"	TEXT,
@@ -24,7 +32,11 @@ db.run(
         "image"	TEXT,
         PRIMARY KEY("recipeID" AUTOINCREMENT)
     );
+`
+)
 
+db.run(
+    `
     CREATE TABLE IF NOT EXISTS "RecipeTags" (
         "tagID"	INTEGER,
         "recipeID"	INTEGER,
@@ -37,7 +49,7 @@ db.run(
 `
 )
 
-//--------------------GET RECOURCES----------------------------------------------
+//GET RECOURCES--------------------------------------------------------------------------------------------------
 exports.getAllFaqs = function (callback) {
 
     const query = "SELECT * FROM FAQ ORDER BY faqID DESC"
@@ -66,7 +78,7 @@ exports.GetAllArticles = function (callback) {
 }
 
 
-//-------------------GET RECOURCES BY ID-------------------------------------------
+//GET RECOURCES BY ID--------------------------------------------------------------------------------------------
 
 exports.getFaqById = function (faqID, callback) {
     const query = "SELECT * FROM FAQ WHERE faqID = ? LIMIT 1"
@@ -138,7 +150,7 @@ exports.getRecipeById = function (recipeID, callback) {
 }
 
 
-//--------------------CREATE FAQ----------------------------------------------
+//CREATE FAQ-----------------------------------------------------------------------------------------------------
 exports.createFaq = function (question, answer, callback) {
 
     const query = "INSERT INTO FAQ(question, answer) VALUES(?,?) "
@@ -150,7 +162,7 @@ exports.createFaq = function (question, answer, callback) {
 }
 
 
-//--------------------CREATE Article-----------------------------------------
+//CREATE Article-------------------------------------------------------------------------------------------------
 exports.createArticle = function (title, article, callback) {
 
     const query = "INSERT INTO Article(title, article) VALUES(?,?) "
@@ -162,7 +174,7 @@ exports.createArticle = function (title, article, callback) {
 }
 
 
-//--------------------CREATE Recipe-----------------------------------------
+//CREATE Recipe--------------------------------------------------------------------------------------------------
 exports.createRecipe = function (name, image, desc, callback) {
 
     const query = "INSERT INTO Recipe(name, image, desc) VALUES(?,?,?)"
@@ -184,7 +196,7 @@ exports.createRecipeTags = function (recipeID, cookingTime, mainIngredient, meal
 }
 
 
-//---------------------UPDATE  FAQ-----------------------------------------
+//UPDATE  FAQ----------------------------------------------------------------------------------------------------
 exports.updateFaqbyId = function (faqID, question, answer, callback) {
 
     const query = "UPDATE FAQ SET question = ?, answer = ? WHERE faqID = ?"
@@ -196,7 +208,7 @@ exports.updateFaqbyId = function (faqID, question, answer, callback) {
 }
 
 
-//--------------------UPDATE  ARTICLE-----------------------------------------
+//UPDATE  ARTICLE------------------------------------------------------------------------------------------------
 exports.updateArticleById = function (articleID, title, article, callback) {
 
     const query = "UPDATE Article SET title = ?, article = ? WHERE articleID = ?"
@@ -208,7 +220,7 @@ exports.updateArticleById = function (articleID, title, article, callback) {
 }
 
 
-//--------------------UPDATE RECIPE-----------------------------------------
+//UPDATE RECIPE--------------------------------------------------------------------------------------------------
 exports.updateRecipeById = function (recipeID, name, desc, callback) {
 
     const query = "UPDATE Recipe SET name = ?, desc = ? WHERE recipeID = ?"
@@ -230,7 +242,7 @@ exports.updateRecipeTagsById = function (recipeID, cookingTime, mainIngredient, 
 }
 
 
-//--------------------DELETE FAQ-----------------------------------------
+//DELETE FAQ----------------------------------------------------------------------------------------------------
 exports.deleteFaqById = function (faqID, callback) {
 
     const query = "DELETE FROM FAQ WHERE faqID = ?"
@@ -243,7 +255,7 @@ exports.deleteFaqById = function (faqID, callback) {
 }
 
 
-//--------------------DELETE ARTICLE-----------------------------------------
+//DELETE ARTICLE-------------------------------------------------------------------------------------------------
 exports.deleteArticleById = function (articleID, callback) {
 
     const query = "DELETE FROM Article WHERE articleID = ?"
@@ -255,7 +267,7 @@ exports.deleteArticleById = function (articleID, callback) {
 }
 
 
-//--------------------DELETE RECIPE-----------------------------------------
+//DELETE RECIPE--------------------------------------------------------------------------------------------------
 exports.deleteRecipeById = function (recipeID, callback) {
 
     const query = "DELETE FROM Recipe WHERE recipeID = ?"
