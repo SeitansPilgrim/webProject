@@ -19,28 +19,28 @@
   <div class="container hide-md m-2">
     <div class="columns text-dark">
 
-      <div class="column col-4 text-left">
+      <div class="column col-4 text-left text-error">
         <h2>Free Range Tomato</h2>
       </div>
 
       <div class="column col-lg-auto"></div>
-      <div class="column col-1 text-right text-small my-2"><a href='/'>Home</a></div>
-      <div class="column col-1 text-right text-small my-2"><a href='/recipes'>Recipes</a></div>
-      <div class="column col-1 text-right text-small my-2"><a href='/articles'>Articles</a></div>
-      <div class="column col-1 text-right text-small my-2"><a href='/faq'>FAQ</a></div>
-      <div class="column col-1 text-right text-small my-2"><a href='/about'>About</a></div>
-      <div class="column col-1 text-right text-small my-2"><a href='/contact'>Contact</a></div>
+      <div class="column col-1 text-right text-small my-2"><a class="text-dark" href='/'>Home</a></div>
+      <div class="column col-1 text-right text-small my-2"><a class="text-dark" href='/recipes'>Recipes</a></div>
+      <div class="column col-1 text-right text-small my-2"><a class="text-dark" href='/articles'>Articles</a></div>
+      <div class="column col-1 text-right text-small my-2"><a class="text-dark" href='/faq'>FAQ</a></div>
+      <div class="column col-1 text-right text-small my-2"><a class="text-dark" href='/about'>About</a></div>
+      <div class="column col-1 text-right text-small my-2"><a class="text-dark" href='/contact'>Contact</a></div>
 
       <div class="column col-1 text-right text-small my-1">
         {{#if session.isLoggedIn}}
         <div class="dropdown dropdown-right">
 
-          <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <a href="#" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
             <p class="icon icon-people" style="font-size: 20px;"></p>
           </a>
 
           <ul class="menu text-left">
-            <a href='/logout'>Log out</a>
+            <a class="text-dark" href='/logout'>Log out</a>
           </ul>
 
         </div>
@@ -48,7 +48,7 @@
         {{else}}
         <div class="dropdown dropdown-right">
 
-          <a href="/auth/login" class="btn btn-link dropdown-toggle" tabindex="0">
+          <a href="/auth/login" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
             <p class="icon icon-people" style="font-size: 20px;"></p>
           </a>
 
@@ -65,7 +65,7 @@
   <div class="container show-md hide-xs m-2">
     <div class="columns">
 
-      <div class="column col-9 text-left">
+      <div class="column col-9 text-left text-error">
         <h2>Free Range Tomato</h2>
       </div>
 
@@ -73,17 +73,17 @@
 
       <div class="dropdown dropdown-right">
 
-        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+        <a href="#" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
           <i class="icon icon-menu" style="font-size: 30px;"></i>
         </a>
 
         <ul class="menu">
-          <div class="column col-1 my-2"><a href='/'>Home</a> </div>
-          <div class="column col-1 my-2"><a href='/recipes'>Recipes</a></div>
-          <div class="column col-1 my-2"><a href='/articles'>Articles</a></div>
-          <div class="column col-1 my-2"><a href='/faq'>FAQ</a></div>
-          <div class="column col-1 my-2"><a href='/about'>About</a></div>
-          <div class="column col-1 my-2"><a href='/contact'>Contact</a></div>
+          <div class="column col-1 my-2"><a class="text-dark" href='/'>Home</a> </div>
+          <div class="column col-1 my-2"><a class="text-dark" href='/recipes'>Recipes</a></div>
+          <div class="column col-1 my-2"><a class="text-dark" href='/articles'>Articles</a></div>
+          <div class="column col-1 my-2"><a class="text-dark" href='/faq'>FAQ</a></div>
+          <div class="column col-1 my-2"><a class="text-dark" href='/about'>About</a></div>
+          <div class="column col-1 my-2"><a class="text-dark" href='/contact'>Contact</a></div>
         </ul>
 
       </div>
@@ -92,12 +92,12 @@
         {{#if session.isLoggedIn}}
         <div class="dropdown dropdown-right">
 
-          <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+          <a href="#" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
             <p class="icon icon-people" style="font-size: 30px;"></p>
           </a>
 
           <ul class="menu text-left">
-            <a href='/logout'>Log out</a>
+            <a class="text-dark" href='/logout'>Log out</a>
           </ul>
 
         </div>
@@ -105,7 +105,7 @@
         {{else}}
         <div class="dropdown dropdown-right">
 
-          <a href="/auth/login" class="btn btn-link dropdown-toggle" tabindex="0">
+          <a href="/auth/login" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
             <p class="icon icon-people" style="font-size: 30px;"></p>
           </a>
 
@@ -122,23 +122,23 @@
   <div class="container show-xs m-2">
     <div class="columns">
 
-      <div class="column col-12 text-center">
+      <div class="column col-12 text-center text-error">
         <h2>Free Range Tomato</h2>
       </div>
 
       <div class="dropdown col-12 text-center my-2">
 
-        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+        <a href="#" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
           <i class="icon icon-menu icon-2x"></i>
         </a>
 
         <ul class="menu">
-          <div class="column my-1"><a href='/'>Home</a></div>
-          <div class="column"><a href='/recipes'>Recipes</a></div>
-          <div class="column"><a href='/articles'>Articles</a></div>
-          <div class="column"><a href='/faq'>FAQ</a></div>
-          <div class="column"><a href='/about'>About</a></div>
-          <div class="column"><a href='/contact'>Contact</a></div>
+          <div class="column"><a class="text-dark" href='/'>Home</a></div>
+          <div class="column"><a class="text-dark" href='/recipes'>Recipes</a></div>
+          <div class="column"><a class="text-dark" href='/articles'>Articles</a></div>
+          <div class="column"><a class="text-dark" href='/faq'>FAQ</a></div>
+          <div class="column"><a class="text-dark" href='/about'>About</a></div>
+          <div class="column"><a class="text-dark" href='/contact'>Contact</a></div>
         </ul>
 
       </div>
@@ -146,21 +146,22 @@
       {{#if session.isLoggedIn}}
       <div class="dropdown col-12 dropdown-right text-center my-2">
 
-        <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+        <a href="#" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
           <p class="icon icon-people" style="font-size: 30px;"></p>
         </a>
 
         <ul class="menu">
-          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px"><a
-              href='/logout'>Log out</a></div>
+          <div class="column col-1" style="font-family:Lucida Concole; text-align:right; padding-top:15px">
+            <a class="text-dark" href='/logout'>Log out</a>
+          </div>
         </ul>
 
       </div>
 
       {{else}}
-      <div class="dropdown col-12 dropdown-right text-center">
+      <div class="dropdown col-12 dropdown-right text-center text-dark">
 
-        <a href="/auth/login" class="btn btn-link dropdown-toggle" tabindex="0">
+        <a href="/auth/login" class="btn btn-link dropdown-toggle text-dark" tabindex="0">
           <p class="icon icon-people" style="font-size: 30px;"></p>
         </a>
 
@@ -171,13 +172,14 @@
     </div>
   </div>
 
-
 </header>
+
 
 <body class="m-2 p-2">
   <main class="m-2 p-2">
     {{{body}}}
   </main>
 </body>
+
 
 </html>
