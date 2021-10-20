@@ -4,33 +4,35 @@
 
 
 {{#if session.isLoggedIn}}
-
 <div class="col-12 my-2 text-center">
 	<button class="btn btn-primary">
 		<a class="text-secondary" href="/articles/create">Create new article</a>
 	</button>
 </div>
-
 {{/if}}
 
 
-<div class="columns">
-	{{#if hasDatabaseError}}
-	<div class="column col-12">
-		<h3 style="text-align: center;">Could not fetch the articles at the moment, try again later.</h3>
-	</div>
+{{#if hasDatabaseError}}
+<div class="column col-12">
+	<h3 class="text-center">Could not fetch the articles at the moment, try again later.</h3>
+</div>
 
-	{{else}}
+
+
+
+{{else}}
+<div class="columns">
 	{{#if Article.length}}
 	{{#each Article}}
-	<div class="column col-3"></div>
 
+	<div class="column col-3"></div>
 	<div class="column col-6">
+
 		<h4>{{title}}</h4>
 		<p>{{article}}</p>
 
 		{{#if ../session.isLoggedIn}}
-		<div style="text-align: right;">
+		<div class="text-right">
 
 			<a class="text-error" href="/articles/{{articleID}}/delete">
 				<i class="icon icon-delete"></i>
@@ -41,15 +43,17 @@
 			</a>
 
 		</div>
+		{{/if}}		
+
 	</div>
-
-	{{/if}}
-
 	<div class="column col-3"></div>
-	{{/each}}
 
+	{{/each}}
 	{{else}}
-	<p>There are no articles available.</p>
+
+	<div class="column col-12 my-2">
+		<h3 class="text-center">There are no articles available.</h3>
+	</div>
 
 	{{/if}}
 	{{/if}}

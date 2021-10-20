@@ -60,7 +60,7 @@ exports.getAllFaqs = function (callback) {
 
 exports.getAllRecipes = function (start, last, callback) {
 
-    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID LIMIT ?,?"
+    const query = "SELECT * FROM Recipe JOIN RecipeTags ON Recipe.recipeID = RecipeTags.recipeID ORDER BY recipeID DESC LIMIT ?,?"
     const values = [start, last]
 
     db.all(query, values, function (error, Recipe) {
