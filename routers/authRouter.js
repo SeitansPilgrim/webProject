@@ -22,7 +22,7 @@ router.post('/login', csrfProtection, function (request, response) {
     const password = request.body.password
     const errors = []
 
-    if (username == ADMIN_USERNAME && bcrypt.compare(password, HASH_PASSWORD)) {
+    if (username == ADMIN_USERNAME && bcrypt.compareSync(password, HASH_PASSWORD)) {
 
         request.session.isLoggedIn = true
 
