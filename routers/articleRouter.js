@@ -201,8 +201,8 @@ router.post('/:articleID/update', csrfProtection, function (request, response) {
                 articleID,
                 title,
                 article,
-                csrfToken: request.csrfToken()
-            }
+            },
+            csrfToken: request.csrfToken()
         }
 
         response.render('updateArticle.hbs', model)
@@ -282,9 +282,9 @@ router.post('/:articleID/delete', csrfProtection, function (request, response) {
         {
             errors,
             Article: {
-                articleID,
-                csrfToken: request.csrfToken()
-            }
+                articleID,      
+            },
+            csrfToken: request.csrfToken()
         }
 
         response.render('deleteArticle.hbs', model)

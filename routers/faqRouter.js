@@ -26,7 +26,7 @@ router.get('/', csrfProtection, function (request, response) {
         }
 
         else {
-            
+
             const model =
             {
                 hasDatabaseError: false,
@@ -135,7 +135,7 @@ router.get('/:faqID/update', csrfProtection, function (request, response) {
 
         if (error) {
 
-            const model = 
+            const model =
             {
                 hasDatabaseError: true,
                 FAQ: [],
@@ -205,8 +205,8 @@ router.post('/:faqID/update', csrfProtection, function (request, response) {
                 faqID,
                 question,
                 answer,
-                csrfToken: request.csrfToken()
-            }
+            },
+            csrfToken: request.csrfToken()
         }
 
         response.render('updateFaq.hbs', model)
@@ -269,7 +269,7 @@ router.post('/:faqID/delete', csrfProtection, function (request, response) {
                     faqID,
                     csrfToken: request.csrfToken()
                 }
-                
+
                 response.render('deleteFaq.hbs', model)
 
             } else {
@@ -285,8 +285,8 @@ router.post('/:faqID/delete', csrfProtection, function (request, response) {
             errors,
             FAQ: {
                 faqID,
-                csrfToken: request.csrfToken()
-            }
+            },
+            csrfToken: request.csrfToken()
         }
 
         response.render('deleteFaq.hbs', model)

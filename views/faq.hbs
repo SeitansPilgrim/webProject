@@ -4,34 +4,34 @@
 
 
 {{#if session.isLoggedIn}}
+<div class="col-12 my-2 text-center">
 
-	<div class="col-12 my-2 text-center">
-		<button class="btn btn-primary">
-			<a class="text-secondary" href="/faq/create" style="">Create new FAQ</a>
-		</button>
-	</div>
+  <button class="btn btn-primary">
+    <a class="text-secondary" href="/faq/create" style="">Create new FAQ</a>
+  </button>
 
+</div>
 {{/if}}
 
 
+{{#if hasDatabaseError}}
 <div class="columns">
   <div class="column col-3"></div>
+
   <div class="column col-6">
-    
-    {{#if hasDatabaseError}}
-    <div class="columns">
-      <div class="column col-3"></div>
+    <h3 style="text-align: center;">Could not fetch the FAQs at the moment, try again later.</h3>
+  </div>
 
-      <div class="column col-6">
-        <h3 style="text-align: center;">Could not fetch the FAQs at the moment, try again later.</h3>
-      </div>
-
-      <div class="column col-3"></div>
-    </div>
+  <div class="column col-3"></div>
+</div>
 
 
-    {{else}}
-    {{#if FAQ.length}}
+{{else}}
+{{#if FAQ.length}}
+<div class="columns">
+  <div class="column col-3"></div>
+
+  <div class="column col-6">
     {{#each FAQ}}
 
     <div class="divider text-center" data-content=""></div>
@@ -45,12 +45,12 @@
         {{#if ../session.isLoggedIn}}
         <div style="text-align: right;">
 
-          <a class="text-error" href="/faq/{{faqID}}/delete">
-            <i class="icon icon-delete"></i>
+          <a class="text-success mx-2 px-2" href="/faq/{{faqID}}/update">
+            <i class="icon icon-edit"></i>
           </a>
 
-          <a class="text-success" href="/faq/{{faqID}}/update">
-            <i class="icon icon-edit"></i>
+          <a class="text-error my-2 px-2" href="/faq/{{faqID}}/delete">
+            <i class="icon icon-delete"></i>
           </a>
 
         </div>
@@ -64,13 +64,14 @@
 
     {{/each}}
     <div class="divider text-center" data-content=""></div>
-
-    {{else}}
-    <h3 style="text-align: center;">There are no FAQs available.</h3>
-
-    {{/if}}
-    {{/if}}
-
   </div>
   <div class="column col-3"></div>
 </div>
+
+{{else}}
+<div class="column col-12 text-center">
+  <h3>There are no FAQs available.</h3>
+</div>
+
+{{/if}}
+{{/if}}
