@@ -3,7 +3,6 @@ const db = require('../database')
 const validators = require('../validators')
 const csurf = require('csurf')
 const paginate = require('express-paginate')
-
 const csrfProtection = csurf()
 const router = express.Router()
 

@@ -6,8 +6,8 @@ const csrfProtection = csurf()
 const router = express.Router()
 
 
-const ADMIN_USERNAME = 's'
-const ADMIN_PASSWORD = 's'
+const ADMIN_USERNAME = 'admin'
+const ADMIN_PASSWORD = 'ye666'
 const HASH_PASSWORD = bcrypt.hashSync(ADMIN_PASSWORD, 8)
 
 router.get('/login', csrfProtection, function (request, response) {

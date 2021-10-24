@@ -20,9 +20,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(fileUpload())
-
 app.use(express.static(__dirname +'/static/images/'))
-
 
 //-----------------LOGIN AND SESSION-------------
 app.use(expressSession({
@@ -50,7 +48,7 @@ app.use('/faq', faqRouter)
 app.use('/recipes', recipeRouter)
 app.use('/auth', authRouter)
 
-app.engine("hbs", expressHandlebars( //Default layout
+app.engine("hbs", expressHandlebars(
 	{
 		defaultLayout: 'main.hbs'
 	}))
