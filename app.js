@@ -12,7 +12,7 @@ const app = express()
 const { response } = require('express')
 const bodyParser = require('body-parser')
 
-const connectSqlite3 = require('connect-sqlite3')
+//const connectSqlite3 = require('connect-sqlite3')
 const SqLiteStore = connectSqlite3(expressSession)
 
 app.use(bodyParser.urlencoded({
